@@ -4,6 +4,8 @@ import java.util.Map;
 
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteYaExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 
 public class Alquiler {
 	private Map<String, Cliente> listaClientes;
@@ -37,5 +39,31 @@ public class Alquiler {
 
 	public Cliente buscarCliente(String cedula) {
 		return listaClientes.get(cedula);
+	}
+	
+	
+	// CRUD VEHICULOS:
+	
+	/**
+	 * 
+	 * @param placa
+	 * @return
+	 */
+	public boolean verificarVehiculo(String placa) {
+		return listaVehiculos.containsKey(placa) && listaVehiculos.get(placa) != null;
+	}
+	
+	public void throwVehiculoYaExistente(String placa) throws VehiculoYaExistenteException {
+		if(verificarVehiculo(placa))
+			throw new VehiculoYaExistenteException("El vehiculo con la placa: " + placa + " ya existe en la lista.");
+		}
+	
+	public void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException{
+		if(verificarVehiculo(placa))
+			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");	
+		}
+	
+	public Vehiculo buscarVehiculo(String placa) {
+		return listaVehiculos.get(placa);
 	}
 }
