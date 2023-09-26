@@ -6,6 +6,9 @@ import java.util.Map;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteYaExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConParametrosNullException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 
 /**
  * @author ElJuancho
@@ -116,5 +119,37 @@ public class EmpresaAlquiler {
 		throwClienteNoExistente(id);
 		return listaClientes.remove(id);
 	}
+
+	// CRUD VEHICULOS:
+
+	/**
+	 * 
+	 * @param placa
+	 * @return
+	 */
+	public boolean verificarVehiculo(String placa) {
+		return listaVehiculos.containsKey(placa) && listaVehiculos.get(placa) != null;
+	}
+
+	public void throwVehiculoYaExistente(String placa) throws VehiculoYaExistenteException {
+		if (verificarVehiculo(placa))
+			throw new VehiculoYaExistenteException("El vehiculo con la placa: " + placa + " ya existe en la lista.");
+	}
+
+	public void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException {
+		if (verificarVehiculo(placa))
+			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");
+	}
+
+	public Vehiculo buscarVehiculo(String placa) {
+		return listaVehiculos.get(placa);
+	}
+
+	public void throwVerificarDatosVehiculos (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
+		if(vehiculo.getPlaca() == null || vehiculo.getNombre() == null ||  vehiculo.getMarca()== null || vehiculo.getModelo()== null || 
+				vehiculo.getFoto()== null || vehiculo.getKilometraje()== null || vehiculo.getPrecio()== null || vehiculo.getEsAutomatico()== null || vehiculo.getNSillas()== null) 
+			throw new VehiculoConParametrosNullException(
+					"Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");	
+		}
 
 }
