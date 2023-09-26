@@ -271,5 +271,21 @@ public class EmpresaAlquiler {
 		if(vehiculo.getKilometraje()<0 || vehiculo.getPrecio()<0 || vehiculo.getNSillas()<0)
 			throw new VehiculoConNumerosNegativosException("Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");
 	}
-
+	
+	//Factura
+	
+	/**
+	 * Crea un codigo libre para la Factura
+	 * 
+	 * @param codigo
+	 * @throws AlquilerExistenteException
+	 * @author ElJuancho
+	 */
+	
+	/*
+	private void crearCodigoLibreAlquiler() {
+		while (verificarAlquiler(Alquiler.getLong()))
+			Factura.incrementLong();
+	}
+	*/
 }
