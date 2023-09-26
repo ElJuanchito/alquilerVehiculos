@@ -18,10 +18,17 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteExcepti
 public class EmpresaAlquiler {
 	private Map<String, Cliente> listaClientes;
 	private Map<String, Vehiculo> listaVehiculos;
+	private Map<Long, Alquiler> listaAlquilados;
+	private Map<Long, Factura> listaFacturas;
 
+	/**
+	 * Constructor de la clase <code>EmpresaAlquiler</code>
+	 */
 	public EmpresaAlquiler() {
 		listaClientes = new HashMap<String, Cliente>();
 		listaVehiculos = new HashMap<String, Vehiculo>();
+		listaAlquilados = new HashMap<Long, Alquiler>();
+		listaFacturas = new HashMap<Long, Factura>();
 	}
 
 	/**
@@ -270,6 +277,15 @@ public class EmpresaAlquiler {
 	private void throwVerificarNumerosVehiculo (Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
 		if(vehiculo.getKilometraje()<0 || vehiculo.getPrecio()<0 || vehiculo.getNSillas()<0)
 			throw new VehiculoConNumerosNegativosException("Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");
+	}
+	
+	/**
+	 * Verifica si un <code>Alquiler</code> ya se encuentra en la lista mediante su Id. Retorna un valor booleano segun la busqueda.
+	 * @param id
+	 * @return
+	 */
+	public boolean verificarAlquiler(Long id) {
+		return listaAlquilados.containsKey(id) && listaAlquilados.get(id) != null;
 	}
 	
 	//Factura
