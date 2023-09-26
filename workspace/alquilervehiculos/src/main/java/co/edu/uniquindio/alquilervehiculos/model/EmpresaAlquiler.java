@@ -160,7 +160,7 @@ public class EmpresaAlquiler {
 	 * @param placa
 	 * @throws VehiculoYaExistenteException
 	 */
-	public void throwVehiculoYaExistente(String placa) throws VehiculoYaExistenteException {
+	private void throwVehiculoYaExistente(String placa) throws VehiculoYaExistenteException {
 		if (verificarVehiculo(placa))
 			throw new VehiculoYaExistenteException("El vehiculo con la placa: " + placa + " ya existe en la lista.");
 	}
@@ -172,7 +172,7 @@ public class EmpresaAlquiler {
 	 * @param placa
 	 * @throws VehiculoNoExistenteException
 	 */
-	public void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException {
+	private void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException {
 		if (verificarVehiculo(placa))
 			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");
 	}
@@ -252,7 +252,7 @@ public class EmpresaAlquiler {
 	 * @param vehiculo
 	 * @throws VehiculoConParametrosNullException
 	 */
-	public void throwVerificarDatosVehiculo (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
+	private void throwVerificarDatosVehiculo (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
 		if(vehiculo.getPlaca() == null || vehiculo.getNombre() == null ||  vehiculo.getMarca()== null || vehiculo.getModelo()== null || 
 				vehiculo.getFoto()== null || vehiculo.getKilometraje()== null || vehiculo.getPrecio()== null || vehiculo.getEsAutomatico()== null || vehiculo.getNSillas()== null) 
 			throw new VehiculoConParametrosNullException( "Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");	
@@ -267,7 +267,7 @@ public class EmpresaAlquiler {
 	 * @param vehiculo
 	 * @throws VehiculoConNumerosNegativosException
 	 */
-	public void throwVerificarNumerosVehiculo (Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
+	private void throwVerificarNumerosVehiculo (Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
 		if(vehiculo.getKilometraje()<0 || vehiculo.getPrecio()<0 || vehiculo.getNSillas()<0)
 			throw new VehiculoConNumerosNegativosException("Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");
 	}
