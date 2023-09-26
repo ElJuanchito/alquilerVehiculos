@@ -6,6 +6,7 @@ import java.util.Map;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteYaExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConNumerosNegativosException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
@@ -148,8 +149,12 @@ public class EmpresaAlquiler {
 	public void throwVerificarDatosVehiculos (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
 		if(vehiculo.getPlaca() == null || vehiculo.getNombre() == null ||  vehiculo.getMarca()== null || vehiculo.getModelo()== null || 
 				vehiculo.getFoto()== null || vehiculo.getKilometraje()== null || vehiculo.getPrecio()== null || vehiculo.getEsAutomatico()== null || vehiculo.getNSillas()== null) 
-			throw new VehiculoConParametrosNullException(
-					"Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");	
+			throw new VehiculoConParametrosNullException( "Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");	
 		}
+	
+	public void throwVerificarNumerosVehiculo (Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
+		if(vehiculo.getKilometraje()<0 || vehiculo.getPrecio()<0 || vehiculo.getNSillas()<0)
+			throw new VehiculoConNumerosNegativosException("Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");
+	}
 
 }
