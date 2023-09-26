@@ -120,6 +120,24 @@ public class EmpresaAlquiler {
 		throwClienteNoExistente(id);
 		return listaClientes.remove(id);
 	}
+	
+	/**
+	 * Actualiza un <code>Cliente</code> de la lista con la nueva isntancia recibida
+	 * por parametro. Lanza una <code>ClienteConParametrosNullException</code> si la
+	 * nueva instancia posee atributos nulos o una
+	 * <code>ClienteNoExistenteException</code> si el cliente no existe en la lista.
+	 * 
+	 * @param cliente
+	 * @return
+	 * @throws ClienteConParametrosNullException
+	 * @throws ClienteNoExistenteException
+	 */
+	public Cliente actualizarCliente(Cliente cliente)
+			throws ClienteConParametrosNullException, ClienteNoExistenteException {
+		throwClienteNoExistente(cliente.getCedula());
+		verificarDatosCliente(cliente);
+		return listaClientes.compute(cliente.getCedula(), (k, v) -> v = cliente);
+	}
 
 	// CRUD VEHICULOS:
 
