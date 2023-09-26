@@ -124,6 +124,7 @@ public class EmpresaAlquiler {
 	// CRUD VEHICULOS:
 
 	/**
+	 * Verifica que un vehiculo ya exite en la lista.
 	 * 
 	 * @param placa
 	 * @return
@@ -131,21 +132,58 @@ public class EmpresaAlquiler {
 	public boolean verificarVehiculo(String placa) {
 		return listaVehiculos.containsKey(placa) && listaVehiculos.get(placa) != null;
 	}
-
+	
+	
+	/**
+	 * Lanza una <code>VehiculoYaExistenteException</code> si el vehiculo ya existe en
+	 * la lista.
+	 * 
+	 * 
+	 * @param placa
+	 * @throws VehiculoYaExistenteException
+	 */
 	public void throwVehiculoYaExistente(String placa) throws VehiculoYaExistenteException {
 		if (verificarVehiculo(placa))
 			throw new VehiculoYaExistenteException("El vehiculo con la placa: " + placa + " ya existe en la lista.");
 	}
-
+	
+	/**
+	 * Lanza una <code>VehiculoNoExistenteException</code> si el vehiculo ya existe en
+	 * la lista.
+	 * 
+	 * @param placa
+	 * @throws VehiculoNoExistenteException
+	 */
 	public void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException {
 		if (verificarVehiculo(placa))
 			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");
 	}
 
+	/**
+	 * Busca y retorna un <code>Vehiculo</code> en la lista. Lanza una
+	 * <code>VehiucloNoExistenteException</code> si la instancia no existe en la
+	 * lista.
+	 * 
+	 * @param placa
+	 * @return
+	 */
 	public Vehiculo buscarVehiculo(String placa) {
 		return listaVehiculos.get(placa);
 	}
 	
+	/**
+	 * Agrega un <code>Vehiculo</code> y retorna la instancia. Lanza una
+	 * <code>VehiculoYaExistenteException</code> si el cliente ya existe en la lista
+	 * o una <code>VehiculoConParametrosNullException</code> si el
+	 * <code>Vehiculo</code> tiene algun atributo nulo o una <code>VehiculoConNumerosNegativosException<code>
+	 * si el <code>Vehiculo<code> tiene algun atributo menor a cero.
+	 * 
+	 * @param vehiculo
+	 * @return
+	 * @throws VehiculoYaExistenteException
+	 * @throws VehiculoConNumerosNegativosException
+	 * @throws VehiculoConParametrosNullException
+	 */
 	public Vehiculo agregarVehiculo (Vehiculo vehiculo) 
 			throws VehiculoYaExistenteException, VehiculoConNumerosNegativosException, VehiculoConParametrosNullException{
 		throwVehiculoYaExistente(vehiculo.getPlaca());
@@ -154,25 +192,63 @@ public class EmpresaAlquiler {
 		return listaVehiculos.put(vehiculo.getPlaca(), vehiculo);
 	}
 	
-	public Vehiculo eliminarVehiculo (String placa) throws VehiculoYaExistenteException {
-		throwVehiculoYaExistente(placa);
+	/**
+	 * Elimina un <code>Vehiculo</code> de la lista y lo retorna. Lanza una
+	 * <code>VehiculoNoExistenteException</code> si el <code>Vehiculo</code> no existe
+	 * en la lista.
+	 * 
+	 * @param placa
+	 * @return
+	 * @throws VehiculoNoExistenteException
+	 */
+	public Vehiculo eliminarVehiculo (String placa) throws VehiculoNoExistenteException {
+		throwVehiculoNoExistente(placa);
 		return listaVehiculos.remove(placa);
 	}
 	
+	/**
+	 * Actualiza un <code>Vehiculo<code> de la lista y lo retorna. Lanza una <code>VehiculoNoExistenteException<code>
+	 * si el <code>Vehiculo<code> no existe en la lista o una <code>VehiculoConParametrosNullException</code> si el
+	 * <code>Vehiculo</code> tiene algun atributo nulo o una <code>VehiculoConNumerosNegativosException<code>
+	 * si el <code>Vehiculo<code> tiene algun atributo menor a cero.
+	 * 
+	 * @param vehiculo
+	 * @return
+	 * @throws VehiculoNoExistenteException
+	 * @throws VehiculoConNumerosNegativosException
+	 * @throws VehiculoConParametrosNullException
+	 */
 	public Vehiculo actualizarVehiculo(Vehiculo vehiculo) 
-			throws VehiculoYaExistenteException, VehiculoConNumerosNegativosException, VehiculoConParametrosNullException {
+			throws VehiculoNoExistenteException, VehiculoConNumerosNegativosException, VehiculoConParametrosNullException {
 		throwVerificarDatosVehiculo(vehiculo);
 		throwVerificarNumerosVehiculo(vehiculo);
-		throwVehiculoYaExistente(vehiculo.getPlaca());
+		throwVehiculoNoExistente(vehiculo.getPlaca());
 		return listaVehiculos.put(vehiculo.getPlaca(), vehiculo);
 	}
 
+	/**
+	 * Verifica si el <code>Vehiculo</code> introducido por parametro no tiene ningun
+	 * atributo nulo. Lanza una <code>VehiculoConParametrosNullException</code> si
+	 * algun parametro es null.
+	 * 
+	 * @param vehiculo
+	 * @throws VehiculoConParametrosNullException
+	 */
 	public void throwVerificarDatosVehiculo (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
 		if(vehiculo.getPlaca() == null || vehiculo.getNombre() == null ||  vehiculo.getMarca()== null || vehiculo.getModelo()== null || 
 				vehiculo.getFoto()== null || vehiculo.getKilometraje()== null || vehiculo.getPrecio()== null || vehiculo.getEsAutomatico()== null || vehiculo.getNSillas()== null) 
 			throw new VehiculoConParametrosNullException( "Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");	
 		}
 	
+	/**
+	 * Verifica si el <code>Vehiculo</code> introducido por parametro no tiene ningun
+	 * atributo menor que cero. Lanza una <code>VehiculoConNumerosNegativosException</code> si
+	 * algun parametro es null.
+	 * 
+	 * 
+	 * @param vehiculo
+	 * @throws VehiculoConNumerosNegativosException
+	 */
 	public void throwVerificarNumerosVehiculo (Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
 		if(vehiculo.getKilometraje()<0 || vehiculo.getPrecio()<0 || vehiculo.getNSillas()<0)
 			throw new VehiculoConNumerosNegativosException("Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");
