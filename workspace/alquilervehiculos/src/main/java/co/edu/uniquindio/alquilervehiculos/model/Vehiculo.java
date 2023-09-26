@@ -1,5 +1,7 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,12 +13,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Vehiculo {
+public class Vehiculo implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@EqualsAndHashCode.Include
 	private String placa;
 	private String nombre;
-	private String marca;
+	private Marca marca;
 	private String modelo;
 	private String foto;
 	private Double kilometraje;
