@@ -145,8 +145,29 @@ public class EmpresaAlquiler {
 	public Vehiculo buscarVehiculo(String placa) {
 		return listaVehiculos.get(placa);
 	}
+	
+	public Vehiculo agregarVehiculo (Vehiculo vehiculo) 
+			throws VehiculoYaExistenteException, VehiculoConNumerosNegativosException, VehiculoConParametrosNullException{
+		throwVehiculoYaExistente(vehiculo.getPlaca());
+		throwVerificarDatosVehiculo(vehiculo);
+		throwVerificarNumerosVehiculo(vehiculo);
+		return listaVehiculos.put(vehiculo.getPlaca(), vehiculo);
+	}
+	
+	public Vehiculo eliminarVehiculo (String placa) throws VehiculoYaExistenteException {
+		throwVehiculoYaExistente(placa);
+		return listaVehiculos.remove(placa);
+	}
+	
+	public Vehiculo actualizarVehiculo(Vehiculo vehiculo) 
+			throws VehiculoYaExistenteException, VehiculoConNumerosNegativosException, VehiculoConParametrosNullException {
+		throwVerificarDatosVehiculo(vehiculo);
+		throwVerificarNumerosVehiculo(vehiculo);
+		throwVehiculoYaExistente(vehiculo.getPlaca());
+		return listaVehiculos.put(vehiculo.getPlaca(), vehiculo);
+	}
 
-	public void throwVerificarDatosVehiculos (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
+	public void throwVerificarDatosVehiculo (Vehiculo vehiculo) throws VehiculoConParametrosNullException {
 		if(vehiculo.getPlaca() == null || vehiculo.getNombre() == null ||  vehiculo.getMarca()== null || vehiculo.getModelo()== null || 
 				vehiculo.getFoto()== null || vehiculo.getKilometraje()== null || vehiculo.getPrecio()== null || vehiculo.getEsAutomatico()== null || vehiculo.getNSillas()== null) 
 			throw new VehiculoConParametrosNullException( "Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");	
