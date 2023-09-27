@@ -41,7 +41,7 @@ public class Alquiler implements Serializable {
 	}
 
 	private Double calcularPrecio() {
-		Integer dias = (int) ChronoUnit.DAYS.between(fechaRegreso, fechaAlquiler);
+		Long dias = ChronoUnit.DAYS.between(fechaAlquiler, fechaRegreso);
 		return dias * (vehiculo.getPrecio());
 	}
 
