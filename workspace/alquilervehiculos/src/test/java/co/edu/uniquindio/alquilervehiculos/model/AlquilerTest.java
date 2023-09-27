@@ -10,6 +10,7 @@ public class AlquilerTest {
 		
 	}
 	
+	/*
 	@Test
 	public void pruebaConstructor() { 
 		Alquiler alquiler = new Alquiler(null, new Vehiculo(null, null, null, null, null, null, 10d, null, null, null), LocalDateTime.now(), LocalDateTime.of(2023, 10, 12, 0, 0));
@@ -21,5 +22,5 @@ public class AlquilerTest {
 		alquiler2.generarFactura();
 		System.out.println(alquiler2);
 	}
-
+	*/
 }

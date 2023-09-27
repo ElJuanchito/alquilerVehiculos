@@ -1,8 +1,13 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerNoExistenteException;
@@ -16,15 +21,17 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConParametrosNullE
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
+import lombok.Getter;
 
 /**
  * @author ElJuancho
  * @author Breyner_sq
  */
+@Getter
 public class EmpresaAlquiler {
 	private Map<String, Cliente> listaClientes;
 	private Map<String, Vehiculo> listaVehiculos;
-	private Map<Long, Alquiler> listaAlquilados;
+	private Map<Long, Alquiler> listaAlquileres;
 	private Map<Long, Factura> listaFacturas;
 
 	/**
@@ -33,7 +40,7 @@ public class EmpresaAlquiler {
 	public EmpresaAlquiler() {
 		listaClientes = new HashMap<String, Cliente>();
 		listaVehiculos = new HashMap<String, Vehiculo>();
-		listaAlquilados = new HashMap<Long, Alquiler>();
+		listaAlquileres = new HashMap<Long, Alquiler>();
 		listaFacturas = new HashMap<Long, Factura>();
 	}
 
@@ -298,7 +305,7 @@ public class EmpresaAlquiler {
 	 * @return
 	 */
 	public boolean verificarAlquiler(Long id) {
-		return listaAlquilados.containsKey(id) && listaAlquilados.get(id) != null;
+		return listaAlquileres.containsKey(id) && listaAlquileres.get(id) != null;
 	}
 
 	/**
@@ -311,8 +318,8 @@ public class EmpresaAlquiler {
 	 */
 	private void throwVehiculoYaAlquilado(String placa, LocalDate fechaAlquiler, LocalDate fechaRetorno)
 			throws VehiculoYaAlquiladoException {
-		if (listaAlquilados.values().stream().anyMatch(a -> a.enRangoDeFechas(fechaAlquiler, fechaRetorno)
-				&& a.getVehiculo().getPlaca().equals(placa)))
+		if (listaAlquileres.values().stream().anyMatch(
+				a -> a.enRangoDeFechas(fechaAlquiler, fechaRetorno) && a.getVehiculo().getPlaca().equals(placa)))
 			throw new VehiculoYaAlquiladoException(
 					"El vehiculo de placas: " + placa + ", ya se encuentra alquilado en esas fechas.");
 	}
@@ -377,7 +384,7 @@ public class EmpresaAlquiler {
 	 */
 	public Alquiler buscarAlquiler(Long id) throws AlquilerNoExistenteException {
 		throwAlquilerNoExistente(id);
-		return listaAlquilados.get(id);
+		return listaAlquileres.get(id);
 	}
 
 	/**
@@ -394,17 +401,19 @@ public class EmpresaAlquiler {
 	 * @throws AlquilerYaExistenteException
 	 * @throws AlquilerConParametrosNullException
 	 * @throws VehiculoYaAlquiladoException
+	 * @throws VehiculoNoExistenteException
 	 */
-	public Alquiler agregarAlquiler(Alquiler alquiler)
-			throws AlquilerYaExistenteException, AlquilerConParametrosNullException, VehiculoYaAlquiladoException {
+	public Alquiler agregarAlquiler(Alquiler alquiler) throws AlquilerYaExistenteException,
+			AlquilerConParametrosNullException, VehiculoYaAlquiladoException, VehiculoNoExistenteException {
 		crearCodigoLibreAlquiler();
 		alquiler.setId(Alquiler.getLong());
 		throwAlquilerYaExistente(alquiler.getId());
 		throwAlquilerConParametrosNull(alquiler);
-		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca(), alquiler.getFechaAlquiler(), alquiler.getFechaRegreso());
+		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca(), alquiler.getFechaAlquiler(),
+				alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
-		return listaAlquilados.put(alquiler.getId(), alquiler);
+		return listaAlquileres.put(alquiler.getId(), alquiler);
 	}
 
 	/**
@@ -418,7 +427,7 @@ public class EmpresaAlquiler {
 	 */
 	public Alquiler EliminarAlquiler(Long id) throws AlquilerNoExistenteException {
 		throwAlquilerNoExistente(id);
-		return listaAlquilados.remove(id);
+		return listaAlquileres.remove(id);
 	}
 
 	/**
@@ -456,5 +465,38 @@ public class EmpresaAlquiler {
 	public Factura buscarFactura(Long id) throws FacturaNoExistenteException {
 		throwFacturaNoExistenteException(id);
 		return listaFacturas.get(id);
+	}
+
+	/**
+	 * Retorna una <b>List</b> <b>Vehiculo</b> con los vehiculos que estaba
+	 * disponibles en un rango de fechas.
+	 * 
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return <code>List<{@link Vehiculo}> </code>
+	 */
+	public List<Vehiculo> vehiculosDisponiblesEnRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+		List<Vehiculo> lista = new ArrayList<Vehiculo>();
+
+		for (Map.Entry<String, Vehiculo> entrada : listaVehiculos.entrySet()) {
+			Vehiculo v = entrada.getValue();
+			if (vehiculoDisponibleEnRangoFechas(v, fechaInicio, fechaFin))
+				lista.add(v);
+		}
+		return lista;
+	}
+
+	/**
+	 * Verifica si un vehiculo esta dispobile en el rango de fechas especificado.
+	 * 
+	 * @param vehiculo
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return <b>true</b> si el vehiculo no esta en la listaAlquileres o
+	 *         <b>false</b> si lo esta.
+	 */
+	private boolean vehiculoDisponibleEnRangoFechas(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
+		return !listaAlquileres.values().stream()
+				.anyMatch(a -> a.getVehiculo().equals(vehiculo) && a.enRangoDeFechas(fechaInicio, fechaFin));
 	}
 }
