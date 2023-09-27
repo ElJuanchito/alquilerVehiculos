@@ -9,11 +9,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Alquiler implements Serializable {
 	/**
 	 * 
@@ -30,12 +33,11 @@ public class Alquiler implements Serializable {
 
 	public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDateTime fechaAlquiler, LocalDateTime fechaRegreso) {
 		super();
+		this.setId(ai.get());
 		this.cliente = cliente;
 		this.vehiculo = vehiculo;
 		this.fechaAlquiler = fechaAlquiler;
 		this.fechaRegreso = fechaRegreso;
-		this.factura = Factura.builder().fecha(fechaAlquiler).vehiculo(vehiculo).cliente(cliente)
-				.costo(calcularPrecio()).build();
 	}
 
 	private Double calcularPrecio() {
@@ -49,5 +51,10 @@ public class Alquiler implements Serializable {
 
 	public static Long getLong() {
 		return ai.get();
+	}
+	public Factura generarFactura() {
+		this.factura = Factura.builder().id(id).fecha(fechaAlquiler).vehiculo(vehiculo).cliente(cliente)
+				.costo(calcularPrecio()).build();
+		return factura;
 	}
 }

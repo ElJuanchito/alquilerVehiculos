@@ -7,10 +7,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Factura {
 	@EqualsAndHashCode.Include
 	private Long id;
@@ -24,9 +26,9 @@ public class Factura {
 	private Double costo;
 
 	@Builder
-	public Factura(LocalDateTime fecha, Vehiculo vehiculo, Cliente cliente, Double costo) {
+	public Factura(Long id, LocalDateTime fecha, Vehiculo vehiculo, Cliente cliente, Double costo) {
 		super();
-		this.id = Alquiler.getLong();
+		this.id = id;
 		this.fecha = fecha;
 		this.vehiculo = vehiculo;
 		this.cliente = cliente;

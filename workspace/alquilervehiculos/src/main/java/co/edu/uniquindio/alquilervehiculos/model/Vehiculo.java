@@ -29,4 +29,5 @@ public class Vehiculo implements Serializable{
 	private Double precio;
 	private Boolean esAutomatico;
 	private Integer nSillas;
+	private Estado estado = Estado.NO_ALQUILADO;
 }
