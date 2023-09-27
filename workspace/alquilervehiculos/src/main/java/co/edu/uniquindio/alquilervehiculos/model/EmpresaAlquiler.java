@@ -3,14 +3,18 @@ package co.edu.uniquindio.alquilervehiculos.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerConParametrosNullException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerNoExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerYaExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.ClienteYaExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.FacturaNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConNumerosNegativosException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
-
 /**
  * @author ElJuancho
  * @author Breyner_sq
@@ -288,20 +292,58 @@ public class EmpresaAlquiler {
 		return listaAlquilados.containsKey(id) && listaAlquilados.get(id) != null;
 	}
 	
-	//Factura
+	private void throwVehiculoYaAlquilado(String placa) throws VehiculoYaAlquiladoException {
+			if(buscarVehiculo(placa).getEstado() == Estado.ALQUILADO) throw new VehiculoYaAlquiladoException("El vehiculo de placa: "+ placa + "ya esta alquilado");
+	}
 	
-	/**
-	 * Crea un codigo libre para la Factura
-	 * 
-	 * @param codigo
-	 * @throws AlquilerExistenteException
-	 * @author ElJuancho
-	 */
+	private void throwAlquilerYaExistente(Long id) throws AlquilerYaExistenteException {
+		if(verificarAlquiler(id)) throw new AlquilerYaExistenteException("El alquiler de id: " + id.toString() + ", ya existe en la lista");
+	}
 	
-	/*
+	private void throwAlquilerNoExistente(Long id) throws AlquilerNoExistenteException {
+		if(!verificarAlquiler(id)) throw new AlquilerNoExistenteException("El alquiler de id: " + id.toString() + ", no existe en la lista");
+	}
+	
+	private void throwAlquilerConParametrosNull(Alquiler alquiler) throws AlquilerConParametrosNullException {
+		if(alquiler.getCliente() == null || alquiler.getVehiculo() == null || alquiler.getFechaAlquiler() == null || alquiler.getFechaRegreso() == null) throw new AlquilerConParametrosNullException("La instancia de Alquiler ingresada por paramtro, contiene valores nulos");
+	}
+	
 	private void crearCodigoLibreAlquiler() {
 		while (verificarAlquiler(Alquiler.getLong()))
-			Factura.incrementLong();
+			Alquiler.incrementLong();
 	}
-	*/
+	
+	public Alquiler buscarAlquiler(Long id) throws AlquilerYaExistenteException {
+		throwAlquilerYaExistente(id);
+		return listaAlquilados.get(id);
+	}
+	
+	public Alquiler agregarAlquiler(Alquiler alquiler) throws AlquilerYaExistenteException, AlquilerConParametrosNullException, VehiculoYaAlquiladoException {
+		crearCodigoLibreAlquiler();
+		alquiler.setId(Alquiler.getLong());
+		throwAlquilerYaExistente(alquiler.getId());
+		throwAlquilerConParametrosNull(alquiler);
+		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca());
+		alquiler.generarFactura();
+		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
+		return listaAlquilados.put(alquiler.getId(), alquiler);
+	}
+	
+	public Alquiler EliminarAlquiler(Long id) throws AlquilerNoExistenteException {
+		throwAlquilerNoExistente(id);
+		return listaAlquilados.remove(id);
+	}
+	
+	public boolean verificarFactura(Long id) {
+		return listaFacturas.containsKey(id) && listaFacturas.get(id) != null;
+	}
+	
+	private void throwFacturaNoExistenteException(Long id) throws FacturaNoExistenteException {
+		if(!verificarFactura(id)) throw new FacturaNoExistenteException("La factura con id: " + id.toString() + ", no existe en la lista."); 
+	}
+	
+	public Factura buscarFactura(Long id) throws FacturaNoExistenteException {
+		throwFacturaNoExistenteException(id);
+		return listaFacturas.get(id);
+	}
 }
