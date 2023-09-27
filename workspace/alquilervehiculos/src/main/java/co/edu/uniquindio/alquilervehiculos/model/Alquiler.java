@@ -59,6 +59,19 @@ public class Alquiler implements Serializable {
 	}
 	
 	public boolean enRangoDeFechas(LocalDate alquiler, LocalDate regreso) {
-		return this.fechaAlquiler.isBefore(fechaAlquiler) && fechaRegreso.isAfter(regreso);
+		return this.fechaAlquiler.isBefore(alquiler) && fechaRegreso.isAfter(regreso);
+	}
+	
+	/**
+	 * Verifica que la <code>fechaAlquiler<code> sea mayor o igual a la actual. Ademas, verifica que la 
+	 * <code>fechaRegreso<code> sea mayor que la <code>fechaAlquiler<code>. Retorna un true si todo lo 
+	 * anterior se cumple. De lo contrario retorna un false.
+	 * 
+	 * @param alquiler
+	 * @param regreso
+	 * @return
+	 */
+	public boolean enRangoDeFechaActual () {
+		return this.fechaAlquiler.isAfter(LocalDate.now()) || fechaAlquiler.equals(LocalDate.now()) && fechaRegreso.isAfter(fechaAlquiler);
 	}
 }

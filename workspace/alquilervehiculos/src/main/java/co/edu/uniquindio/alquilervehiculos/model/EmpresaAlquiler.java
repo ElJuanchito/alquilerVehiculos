@@ -16,6 +16,7 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoConParametrosNullE
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
+import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
 
 /**
  * @author ElJuancho
@@ -396,16 +397,25 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoYaAlquiladoException
 	 */
 	public Alquiler agregarAlquiler(Alquiler alquiler)
-			throws AlquilerYaExistenteException, AlquilerConParametrosNullException, VehiculoYaAlquiladoException {
+			throws AlquilerYaExistenteException, AlquilerConParametrosNullException, VehiculoYaAlquiladoException, VerificarFechasException {
 		crearCodigoLibreAlquiler();
 		alquiler.setId(Alquiler.getLong());
+		throwVerificarFechas(alquiler);
 		throwAlquilerYaExistente(alquiler.getId());
 		throwAlquilerConParametrosNull(alquiler);
 		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca(), alquiler.getFechaAlquiler(), alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
 		return listaAlquilados.put(alquiler.getId(), alquiler);
+		
 	}
+	
+	private void throwVerificarFechas (Alquiler alquiler) throws VerificarFechasException {
+		if(!alquiler.enRangoDeFechaActual())
+			throw new VerificarFechasException(
+					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler." );
+	}
+	
 
 	/**
 	 * Elimina y retorna un <code>Alquiler</code> de la lista. Lanza una
