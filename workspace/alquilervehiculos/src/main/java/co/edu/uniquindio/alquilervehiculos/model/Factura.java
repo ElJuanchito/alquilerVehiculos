@@ -1,5 +1,6 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Builder;
@@ -17,7 +18,7 @@ public class Factura {
 	@EqualsAndHashCode.Include
 	private Long id;
 	@Setter
-	private LocalDateTime fecha;
+	private LocalDate fecha;
 	@Setter
 	private Vehiculo vehiculo;
 	@Setter
@@ -26,7 +27,7 @@ public class Factura {
 	private Double costo;
 
 	@Builder
-	public Factura(Long id, LocalDateTime fecha, Vehiculo vehiculo, Cliente cliente, Double costo) {
+	public Factura(Long id, LocalDate fecha, Vehiculo vehiculo, Cliente cliente, Double costo) {
 		super();
 		this.id = id;
 		this.fecha = fecha;

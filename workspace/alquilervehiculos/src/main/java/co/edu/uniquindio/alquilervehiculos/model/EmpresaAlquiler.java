@@ -1,5 +1,6 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -308,9 +309,12 @@ public class EmpresaAlquiler {
 	 * @param placa
 	 * @throws VehiculoYaAlquiladoException
 	 */
-	private void throwVehiculoYaAlquilado(String placa) throws VehiculoYaAlquiladoException {
-		if (buscarVehiculo(placa).getEstado() == Estado.ALQUILADO)
-			throw new VehiculoYaAlquiladoException("El vehiculo de placa: " + placa + "ya esta alquilado");
+	private void throwVehiculoYaAlquilado(String placa, LocalDate fechaAlquiler, LocalDate fechaRetorno)
+			throws VehiculoYaAlquiladoException {
+		if (listaAlquilados.values().stream().anyMatch(a -> a.enRangoDeFechas(fechaAlquiler, fechaRetorno)
+				&& a.getVehiculo().getPlaca().equals(placa)))
+			throw new VehiculoYaAlquiladoException(
+					"El vehiculo de placas: " + placa + ", ya se encuentra alquilado en esas fechas.");
 	}
 
 	/**
@@ -397,7 +401,7 @@ public class EmpresaAlquiler {
 		alquiler.setId(Alquiler.getLong());
 		throwAlquilerYaExistente(alquiler.getId());
 		throwAlquilerConParametrosNull(alquiler);
-		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca());
+		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca(), alquiler.getFechaAlquiler(), alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
 		return listaAlquilados.put(alquiler.getId(), alquiler);
