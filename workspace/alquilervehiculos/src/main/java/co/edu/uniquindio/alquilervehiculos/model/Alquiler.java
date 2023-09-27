@@ -1,7 +1,7 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -28,10 +28,10 @@ public class Alquiler implements Serializable {
 	private Factura factura;
 	private Cliente cliente;
 	private Vehiculo vehiculo;
-	private LocalDateTime fechaAlquiler;
-	private LocalDateTime fechaRegreso;
+	private LocalDate fechaAlquiler;
+	private LocalDate fechaRegreso;
 
-	public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDateTime fechaAlquiler, LocalDateTime fechaRegreso) {
+	public Alquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaAlquiler, LocalDate fechaRegreso) {
 		super();
 		this.setId(ai.get());
 		this.cliente = cliente;
@@ -56,5 +56,9 @@ public class Alquiler implements Serializable {
 		this.factura = Factura.builder().id(id).fecha(fechaAlquiler).vehiculo(vehiculo).cliente(cliente)
 				.costo(calcularPrecio()).build();
 		return factura;
+	}
+	
+	public boolean enRangoDeFechas(LocalDate alquiler, LocalDate regreso) {
+		return this.fechaAlquiler.isBefore(fechaAlquiler) && fechaRegreso.isAfter(regreso);
 	}
 }
