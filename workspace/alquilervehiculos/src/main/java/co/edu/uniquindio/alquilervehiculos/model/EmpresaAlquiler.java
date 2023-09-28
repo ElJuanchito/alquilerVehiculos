@@ -66,10 +66,10 @@ public class EmpresaAlquiler {
 	
 	
 	private void throwClienteYaExistente(String cedula) throws ClienteYaExistenteException {
-		if (verificarCliente(cedula))
+		if (verificarCliente(cedula)) {
 			LOGGER.log(Level.WARNING, "El cliente identificado con la cedula:"+ cedula + "ya existe en la lista.");
 			throw new ClienteYaExistenteException(
-					"El cliente identificado con la cedula: " + cedula + ", ya existe en la lista.");
+					"El cliente identificado con la cedula: " + cedula + ", ya existe en la lista.");}
 	}
 
 	/**
@@ -80,9 +80,10 @@ public class EmpresaAlquiler {
 	 * @throws ClienteNoExistenteException
 	 */
 	private void throwClienteNoExistente(String cedula) throws ClienteNoExistenteException {
-		if (verificarCliente(cedula))
+		if (verificarCliente(cedula)) {
+			LOGGER.log(Level.WARNING, "El cliente identificado con la cedula:"+ cedula + "no a existe en la lista.");
 			throw new ClienteNoExistenteException(
-					"El cliente identificado con la cedula: " + cedula + ", no existe en la lista.");
+					"El cliente identificado con la cedula: " + cedula + ", no existe en la lista.");}
 	}
 
 	/**
@@ -95,9 +96,10 @@ public class EmpresaAlquiler {
 	 */
 	private void verificarDatosCliente(Cliente cliente) throws ClienteConParametrosNullException {
 		if (cliente.getCedula() == null || cliente.getCiudad() == null || cliente.getDireccion() == null
-				|| cliente.getNombre() == null || cliente.getTelefono() == null || cliente.getEmail() == null)
+				|| cliente.getNombre() == null || cliente.getTelefono() == null || cliente.getEmail() == null) {
+			LOGGER.log(Level.WARNING, "Se estan digitando parametros  nulos en la creacion del objeto Cliente");
 			throw new ClienteConParametrosNullException(
-					"Se estan introduciendo parametros nulos en la creacion del objeto Cliente");
+					"Se estan introduciendo parametros nulos en la creacion del objeto Cliente");}
 	}
 
 	/**
@@ -126,9 +128,10 @@ public class EmpresaAlquiler {
 	 * @throws ClienteConParametrosNullException
 	 */
 	public Cliente agregarCliente(Cliente cliente)
-			throws ClienteYaExistenteException, ClienteConParametrosNullException {
-		throwClienteYaExistente(cliente.getCedula());
+		throws ClienteYaExistenteException, ClienteConParametrosNullException {
+			throwClienteYaExistente(cliente.getCedula());
 		verificarDatosCliente(cliente);
+		LOGGER.log(Level.INFO, "El cliente" + cliente.toString() + "Ha sido agregado a la lista");
 		return listaClientes.put(cliente.getCedula(), cliente);
 	}
 
@@ -141,9 +144,10 @@ public class EmpresaAlquiler {
 	 * @return
 	 * @throws ClienteNoExistenteException
 	 */
-	public Cliente eliminarCliente(String id) throws ClienteNoExistenteException {
-		throwClienteNoExistente(id);
-		return listaClientes.remove(id);
+	public Cliente eliminarCliente(String cedula) throws ClienteNoExistenteException {
+			throwClienteNoExistente(cedula);
+		LOGGER.log(Level.INFO, "El cliente con la cedula " + cedula + "ha sido eliminado de la lista");
+		return listaClientes.remove(cedula);
 	}
 
 	/**
@@ -161,6 +165,7 @@ public class EmpresaAlquiler {
 			throws ClienteConParametrosNullException, ClienteNoExistenteException {
 		throwClienteNoExistente(cliente.getCedula());
 		verificarDatosCliente(cliente);
+		LOGGER.log(Level.INFO, "El cliente con la cedula " + cliente.toString() + " ha sido actualizado en la lista");
 		return listaClientes.compute(cliente.getCedula(), (k, v) -> v = cliente);
 	}
 
@@ -185,8 +190,9 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoYaExistenteException
 	 */
 	private void throwVehiculoYaExistente(String placa) throws VehiculoYaExistenteException {
-		if (verificarVehiculo(placa))
-			throw new VehiculoYaExistenteException("El vehiculo con la placa: " + placa + " ya existe en la lista.");
+		if (verificarVehiculo(placa)) {
+			LOGGER.log(Level.WARNING, "El vehiculo identificado con la placa:"+ placa + " ya existe en la lista.");
+			throw new VehiculoYaExistenteException("El vehiculo con la placa: " + placa + " ya existe en la lista.");}
 	}
 
 	/**
@@ -197,8 +203,9 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoNoExistenteException
 	 */
 	private void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException {
-		if (verificarVehiculo(placa))
-			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");
+		if (verificarVehiculo(placa)) {
+			LOGGER.log(Level.WARNING, "El vehiculo identificado con la placa:"+ placa + " no existe en la lista.");
+			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");}
 	}
 
 	/**
@@ -232,6 +239,7 @@ public class EmpresaAlquiler {
 		throwVehiculoYaExistente(vehiculo.getPlaca());
 		throwVerificarDatosVehiculo(vehiculo);
 		throwVerificarNumerosVehiculo(vehiculo);
+		LOGGER.log(Level.INFO, "El vehiculo " + vehiculo.toString() + " ha sido agregado a la lista.");
 		return listaVehiculos.put(vehiculo.getPlaca(), vehiculo);
 	}
 
@@ -246,6 +254,7 @@ public class EmpresaAlquiler {
 	 */
 	public Vehiculo eliminarVehiculo(String placa) throws VehiculoNoExistenteException {
 		throwVehiculoNoExistente(placa);
+		LOGGER.log(Level.INFO, "El vehiculo con la placa " + placa + " ha sido eliminado a la lista.");
 		return listaVehiculos.remove(placa);
 	}
 
@@ -268,6 +277,7 @@ public class EmpresaAlquiler {
 		throwVerificarDatosVehiculo(vehiculo);
 		throwVerificarNumerosVehiculo(vehiculo);
 		throwVehiculoNoExistente(vehiculo.getPlaca());
+		LOGGER.log(Level.INFO, "El vehiculo " + vehiculo.toString() + " Ha sido actualizado en la lista.");
 		return listaVehiculos.put(vehiculo.getPlaca(), vehiculo);
 	}
 
@@ -282,7 +292,8 @@ public class EmpresaAlquiler {
 	private void throwVerificarDatosVehiculo(Vehiculo vehiculo) throws VehiculoConParametrosNullException {
 		if (vehiculo.getPlaca() == null || vehiculo.getNombre() == null || vehiculo.getMarca() == null
 				|| vehiculo.getModelo() == null || vehiculo.getFoto() == null || vehiculo.getKilometraje() == null
-				|| vehiculo.getPrecio() == null || vehiculo.getEsAutomatico() == null || vehiculo.getNSillas() == null)
+				|| vehiculo.getPrecio() == null || vehiculo.getEsAutomatico() == null || vehiculo.getNSillas() == null) {
+			LOGGER.log(Level.WARNING, "Se estan ingresando parametros nulos para la creacion del objeto Vehiculo");}
 			throw new VehiculoConParametrosNullException(
 					"Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");
 	}
@@ -298,8 +309,9 @@ public class EmpresaAlquiler {
 	 */
 	private void throwVerificarNumerosVehiculo(Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
 		if (vehiculo.getKilometraje() < 0 || vehiculo.getPrecio() < 0 || vehiculo.getNSillas() < 0)
+			LOGGER.log(Level.WARNING, "Se estan ingresando parametros menores a 0 para la creacion del objeto Vehiculo");
 			throw new VehiculoConNumerosNegativosException(
-					"Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");
+					"Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");}
 	}
 
 	/**
@@ -324,9 +336,10 @@ public class EmpresaAlquiler {
 	private void throwVehiculoYaAlquilado(String placa, LocalDate fechaAlquiler, LocalDate fechaRetorno)
 			throws VehiculoYaAlquiladoException {
 		if (listaAlquileres.values().stream().anyMatch(
-				a -> a.enRangoDeFechas(fechaAlquiler, fechaRetorno) && a.getVehiculo().getPlaca().equals(placa)))
+				a -> a.enRangoDeFechas(fechaAlquiler, fechaRetorno) && a.getVehiculo().getPlaca().equals(placa))) {
+			LOGGER.log(Level.WARNING, "Se lanzo la excepcion de VehiculoYaAlquilado");
 			throw new VehiculoYaAlquiladoException(
-					"El vehiculo de placas: " + placa + ", ya se encuentra alquilado en esas fechas.");
+					"El vehiculo de placas: " + placa + ", ya se encuentra alquilado en esas fechas.");}
 	}
 
 	/**
@@ -337,8 +350,9 @@ public class EmpresaAlquiler {
 	 * @throws AlquilerYaExistenteException
 	 */
 	private void throwAlquilerYaExistente(Long id) throws AlquilerYaExistenteException {
-		if (verificarAlquiler(id))
-			throw new AlquilerYaExistenteException("El alquiler de id: " + id.toString() + ", ya existe en la lista");
+		if (verificarAlquiler(id)) {
+			LOGGER.log(Level.WARNING, "Se lanzo la excepcion de AlquilerYaExistente");
+			throw new AlquilerYaExistenteException("El alquiler de id: " + id.toString() + ", ya existe en la lista");}
 	}
 
 	/**
@@ -349,8 +363,9 @@ public class EmpresaAlquiler {
 	 * @throws AlquilerNoExistenteException
 	 */
 	private void throwAlquilerNoExistente(Long id) throws AlquilerNoExistenteException {
-		if (!verificarAlquiler(id))
-			throw new AlquilerNoExistenteException("El alquiler de id: " + id.toString() + ", no existe en la lista");
+		if (!verificarAlquiler(id)) {
+			LOGGER.log(Level.WARNING, "Se lanzo la excepcion de AlquilerNoExistente");
+			throw new AlquilerNoExistenteException("El alquiler de id: " + id.toString() + ", no existe en la lista");}
 	}
 
 	/**
@@ -363,9 +378,10 @@ public class EmpresaAlquiler {
 	 */
 	private void throwAlquilerConParametrosNull(Alquiler alquiler) throws AlquilerConParametrosNullException {
 		if (alquiler.getCliente() == null || alquiler.getVehiculo() == null || alquiler.getFechaAlquiler() == null
-				|| alquiler.getFechaRegreso() == null)
+				|| alquiler.getFechaRegreso() == null) {
+			LOGGER.log(Level.WARNING, "Se estan ingresando parametros nulos en la creacion del alquiler");
 			throw new AlquilerConParametrosNullException(
-					"La instancia de Alquiler ingresada por paramtro, contiene valores nulos");
+					"La instancia de Alquiler ingresada por parametro, contiene valores nulos");}
 	}
 
 	/**
@@ -375,6 +391,7 @@ public class EmpresaAlquiler {
 	private void crearCodigoLibreAlquiler() {
 		while (verificarAlquiler(Alquiler.getLong()))
 			Alquiler.incrementLong();
+			LOGGER.log(Level.INFO, "El numero de alquiler aumento a: " + Alquiler.getLong().toString());
 	}
 
 	/**
@@ -420,13 +437,15 @@ public class EmpresaAlquiler {
 				alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
+		LOGGER.log(Level.INFO, "Se agrego el: " + alquiler.toString() + "a la lista de alquileres");
 		return listaAlquileres.put(alquiler.getId(), alquiler);
 	}
 
 	private void throwVerificarFechas(Alquiler alquiler) throws VerificarFechasException {
-		if (!alquiler.enRangoDeFechaActual())
+		if (!alquiler.enRangoDeFechaActual()) {
+			LOGGER.log(Level.WARNING, "Se lanzo VerificarFechasException");
 			throw new VerificarFechasException(
-					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler.");
+					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler.");}
 	}
 
 	/**
@@ -440,6 +459,7 @@ public class EmpresaAlquiler {
 	 */
 	public Alquiler EliminarAlquiler(Long id) throws AlquilerNoExistenteException {
 		throwAlquilerNoExistente(id);
+		LOGGER.log(Level.INFO, "Se elimino el alquiler con id: " + id + "de la lista de alquileres");
 		return listaAlquileres.remove(id);
 	}
 
@@ -462,8 +482,9 @@ public class EmpresaAlquiler {
 	 * @throws FacturaNoExistenteException
 	 */
 	private void throwFacturaNoExistenteException(Long id) throws FacturaNoExistenteException {
-		if (!verificarFactura(id))
-			throw new FacturaNoExistenteException("La factura con id: " + id.toString() + ", no existe en la lista.");
+		if (!verificarFactura(id)) {
+			LOGGER.log(Level.WARNING, "La factura con id: "+ id + "no se encontro en la lista de facturas");
+			throw new FacturaNoExistenteException("La factura con id: " + id.toString() + ", no existe en la lista.");}
 	}
 
 	/**
@@ -477,6 +498,7 @@ public class EmpresaAlquiler {
 	 */
 	public Factura buscarFactura(Long id) throws FacturaNoExistenteException {
 		throwFacturaNoExistenteException(id);
+		LOGGER.log(Level.INFO, "se encontro la factura con id: " + id + "en la lista de alquileres");
 		return listaFacturas.get(id);
 	}
 	
