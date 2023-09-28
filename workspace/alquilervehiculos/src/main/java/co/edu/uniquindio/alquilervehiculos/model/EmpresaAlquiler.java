@@ -2,12 +2,9 @@ package co.edu.uniquindio.alquilervehiculos.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerNoExistenteException;
@@ -22,7 +19,6 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteExcepti
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
-
 import lombok.Getter;
 
 /**
@@ -417,7 +413,7 @@ public class EmpresaAlquiler {
 				alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
-		return listaAlquilados.put(alquiler.getId(), alquiler);
+		return listaAlquileres.put(alquiler.getId(), alquiler);
 		
 	}
 	
@@ -478,6 +474,20 @@ public class EmpresaAlquiler {
 		throwFacturaNoExistenteException(id);
 		return listaFacturas.get(id);
 	}
+	
+	/**
+	 * Verifica si un vehiculo esta dispobile en el rango de fechas especificado.
+	 * 
+	 * @param vehiculo
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return <b>true</b> si el vehiculo no esta en la listaAlquileres o
+	 *         <b>false</b> si lo esta.
+	 */
+	private boolean vehiculoDisponibleEnRangoFechas(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
+		return !listaAlquileres.values().stream()
+				.anyMatch(a -> a.getVehiculo().equals(vehiculo) && a.enRangoDeFechas(fechaInicio, fechaFin));
+	}
 
 	/**
 	 * Retorna una <b>List</b> <b>Vehiculo</b> con los vehiculos que estaba
@@ -497,18 +507,34 @@ public class EmpresaAlquiler {
 		}
 		return lista;
 	}
-
+	
 	/**
-	 * Verifica si un vehiculo esta dispobile en el rango de fechas especificado.
+	 * Retorna una <code>List<code> <code>Vehiculo<code> con los vehiculos que fueron
+	 * alquilados en la <code>fecha<code> ingresada por parametro.
 	 * 
-	 * @param vehiculo
-	 * @param fechaInicio
-	 * @param fechaFin
-	 * @return <b>true</b> si el vehiculo no esta en la listaAlquileres o
-	 *         <b>false</b> si lo esta.
+	 * @param fecha
+	 * @return
 	 */
-	private boolean vehiculoDisponibleEnRangoFechas(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
-		return !listaAlquileres.values().stream()
-				.anyMatch(a -> a.getVehiculo().equals(vehiculo) && a.enRangoDeFechas(fechaInicio, fechaFin));
+	public List<Vehiculo> vehiculosAlquiladosEnFecha(LocalDate fecha){
+		List<Vehiculo> lista= new ArrayList<Vehiculo>();
+		
+		for(Map.Entry<Long, Alquiler> entrada: listaAlquileres.entrySet()) {
+			Alquiler v= entrada.getValue();
+			if(fecha.equals(v.getFechaAlquiler()))
+				lista.add(v.getVehiculo());
+		}
+		return lista;
 	}
+	
+/*
+	public double TotalGanadoPorAlquileresEnRangoFechas (LocalDate fechaInicio, LocalDate fechaFin) {
+		for (Map.Entry<Long, Factura> entrada: listaFacturas.entrySet()) {
+			Factura f= entrada.getValue();
+			
+			
+		}
+		
+	}
+*/
+	
 }
