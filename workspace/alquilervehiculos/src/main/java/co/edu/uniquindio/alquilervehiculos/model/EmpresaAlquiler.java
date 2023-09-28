@@ -2,12 +2,9 @@ package co.edu.uniquindio.alquilervehiculos.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerNoExistenteException;
@@ -22,7 +19,6 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteExcepti
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
-
 import lombok.Getter;
 
 /**
@@ -406,8 +402,8 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoNoExistenteException
 	 */
 
-	public Alquiler agregarAlquiler(Alquiler alquiler)
-			throws AlquilerYaExistenteException, AlquilerConParametrosNullException, VehiculoYaAlquiladoException, VerificarFechasException {
+	public Alquiler agregarAlquiler(Alquiler alquiler) throws AlquilerYaExistenteException,
+			AlquilerConParametrosNullException, VehiculoYaAlquiladoException, VerificarFechasException {
 		crearCodigoLibreAlquiler();
 		alquiler.setId(Alquiler.getLong());
 		throwVerificarFechas(alquiler);
@@ -417,16 +413,15 @@ public class EmpresaAlquiler {
 				alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
-		return listaAlquilados.put(alquiler.getId(), alquiler);
-		
+		return listaAlquileres.put(alquiler.getId(), alquiler);
+
 	}
-	
-	private void throwVerificarFechas (Alquiler alquiler) throws VerificarFechasException {
-		if(!alquiler.enRangoDeFechaActual())
+
+	private void throwVerificarFechas(Alquiler alquiler) throws VerificarFechasException {
+		if (!alquiler.enRangoDeFechaActual())
 			throw new VerificarFechasException(
-					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler." );
+					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler.");
 	}
-	
 
 	/**
 	 * Elimina y retorna un <code>Alquiler</code> de la lista. Lanza una
@@ -510,5 +505,25 @@ public class EmpresaAlquiler {
 	private boolean vehiculoDisponibleEnRangoFechas(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
 		return !listaAlquileres.values().stream()
 				.anyMatch(a -> a.getVehiculo().equals(vehiculo) && a.enRangoDeFechas(fechaInicio, fechaFin));
+	}
+
+	/**
+	 * Busca en <b>listaAlquileres</b> la marca de vehiculo mas alquilada y la retorna.
+	 * @param listaAlquileres
+	 * @return la <b>Marca</b> mas alquilada o null si todas las marcas se alquilaron en mismo numero.
+	 */
+	public Marca obtenerMarcaMasAlquilada(Map<Long, Alquiler> listaAlquileres) {
+		Map<Marca, Integer> mapa = new HashMap<Marca, Integer>();
+		for (Alquiler alquiler : listaAlquileres.values()) {
+			Marca marca = alquiler.getVehiculo().getMarca();
+			mapa.put(marca, mapa.getOrDefault(marca, 0) + 1);
+			System.out.println("k: " + marca + ", v: " + mapa.get(marca));
+		}
+		System.out.println(mapa.toString());
+
+		if (mapa.values().stream().distinct().limit(2).count() <= 1)
+			return null;
+
+		return mapa.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElseGet(null);
 	}
 }
