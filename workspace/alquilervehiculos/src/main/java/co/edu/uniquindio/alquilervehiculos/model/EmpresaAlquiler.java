@@ -2,12 +2,9 @@ package co.edu.uniquindio.alquilervehiculos.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerNoExistenteException;
@@ -22,7 +19,6 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteExcepti
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
-
 import lombok.Getter;
 
 /**
@@ -417,7 +413,7 @@ public class EmpresaAlquiler {
 				alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
-		return listaAlquilados.put(alquiler.getId(), alquiler);
+		return listaAlquileres.put(alquiler.getId(), alquiler);
 		
 	}
 	
