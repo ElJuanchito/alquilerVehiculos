@@ -308,7 +308,7 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoConNumerosNegativosException
 	 */
 	private void throwVerificarNumerosVehiculo(Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
-		if (vehiculo.getKilometraje() < 0 || vehiculo.getPrecio() < 0 || vehiculo.getNSillas() < 0)
+		if (vehiculo.getKilometraje() < 0 || vehiculo.getPrecio() < 0 || vehiculo.getNSillas() < 0) {
 			LOGGER.log(Level.WARNING, "Se estan ingresando parametros menores a 0 para la creacion del objeto Vehiculo");
 			throw new VehiculoConNumerosNegativosException(
 					"Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");}
