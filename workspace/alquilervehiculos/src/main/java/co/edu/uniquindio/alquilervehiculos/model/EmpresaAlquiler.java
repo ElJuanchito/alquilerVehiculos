@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerConParametrosNullException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.AlquilerNoExistenteException;
@@ -31,6 +33,7 @@ public class EmpresaAlquiler {
 	private Map<String, Vehiculo> listaVehiculos;
 	private Map<Long, Alquiler> listaAlquileres;
 	private Map<Long, Factura> listaFacturas;
+	private static final Logger LOGGER = Logger.getLogger(EmpresaAlquiler.class.getName());
 
 
 	/**
@@ -60,8 +63,11 @@ public class EmpresaAlquiler {
 	 * @param cedula
 	 * @throws ClienteYaExistenteException
 	 */
+	
+	
 	private void throwClienteYaExistente(String cedula) throws ClienteYaExistenteException {
 		if (verificarCliente(cedula))
+			LOGGER.log(Level.WARNING, "El cliente identificado con la cedula:"+ cedula + "ya existe en la lista.");
 			throw new ClienteYaExistenteException(
 					"El cliente identificado con la cedula: " + cedula + ", ya existe en la lista.");
 	}
@@ -543,19 +549,6 @@ public class EmpresaAlquiler {
 	        }
 		}
 		return sumaCostos;
-	}
-	
-	
-	public String VehiculoMasAlquilado () {
-		Map<Marca, Integer> listaMarcas;
-		listaMarcas = new HashMap<Marca, Integer>();
-		
-		for (Map.Entry<Marca, Integer> entrada: listaMarcas.entrySet()) {
-			Marca f= entrada.getValue();
-			
-			if ()
-			
-		}
 	}
 
 	/**
