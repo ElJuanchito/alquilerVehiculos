@@ -32,6 +32,7 @@ public class EmpresaAlquiler {
 	private Map<Long, Alquiler> listaAlquileres;
 	private Map<Long, Factura> listaFacturas;
 
+
 	/**
 	 * Constructor de la clase <code>EmpresaAlquiler</code>
 	 */
@@ -414,7 +415,6 @@ public class EmpresaAlquiler {
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
 		return listaAlquileres.put(alquiler.getId(), alquiler);
-
 	}
 
 	private void throwVerificarFechas(Alquiler alquiler) throws VerificarFechasException {
@@ -473,6 +473,20 @@ public class EmpresaAlquiler {
 		throwFacturaNoExistenteException(id);
 		return listaFacturas.get(id);
 	}
+	
+	/**
+	 * Verifica si un vehiculo esta dispobile en el rango de fechas especificado.
+	 * 
+	 * @param vehiculo
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return <b>true</b> si el vehiculo no esta en la listaAlquileres o
+	 *         <b>false</b> si lo esta.
+	 */
+	private boolean vehiculoDisponibleEnRangoFechas(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
+		return !listaAlquileres.values().stream()
+				.anyMatch(a -> a.getVehiculo().equals(vehiculo) && a.enRangoDeFechas(fechaInicio, fechaFin));
+	}
 
 	/**
 	 * Retorna una <b>List</b> <b>Vehiculo</b> con los vehiculos que estaba
@@ -492,19 +506,56 @@ public class EmpresaAlquiler {
 		}
 		return lista;
 	}
-
+	
 	/**
-	 * Verifica si un vehiculo esta dispobile en el rango de fechas especificado.
+	 * Retorna una <code>List<code> <code>Vehiculo<code> con los vehiculos que fueron
+	 * alquilados en la <code>fecha<code> ingresada por parametro.
 	 * 
-	 * @param vehiculo
+	 * @param fecha
+	 * @return
+	 */
+	public List<Vehiculo> vehiculosAlquiladosEnFecha(LocalDate fecha){
+		List<Vehiculo> lista= new ArrayList<Vehiculo>();
+		
+		for(Map.Entry<Long, Alquiler> entrada: listaAlquileres.entrySet()) {
+			Alquiler v= entrada.getValue();
+			if(fecha.equals(v.getFechaAlquiler()))
+				lista.add(v.getVehiculo());
+		}
+		return lista;
+	}
+	
+	/**
+	 * Halla una <code>sumaCostos<code> de todos los costos almacenados en <b>listaFcaturas<b> 
+	 * en un rango de fechas que entran por parametros.
+	 *  
 	 * @param fechaInicio
 	 * @param fechaFin
-	 * @return <b>true</b> si el vehiculo no esta en la listaAlquileres o
-	 *         <b>false</b> si lo esta.
+	 * @return
 	 */
-	private boolean vehiculoDisponibleEnRangoFechas(Vehiculo vehiculo, LocalDate fechaInicio, LocalDate fechaFin) {
-		return !listaAlquileres.values().stream()
-				.anyMatch(a -> a.getVehiculo().equals(vehiculo) && a.enRangoDeFechas(fechaInicio, fechaFin));
+	public double TotalGanadoPorAlquileresEnRangoFechas (LocalDate fechaInicio, LocalDate fechaFin) {
+		double sumaCostos=0;
+		for (Map.Entry<Long, Factura> entrada: listaFacturas.entrySet()) {
+			Factura f= entrada.getValue();
+			
+			if (f.getFecha().isAfter(fechaInicio) && f.getFecha().isBefore(fechaFin)) {
+	            sumaCostos += f.getCosto(); 
+	        }
+		}
+		return sumaCostos;
+	}
+	
+	
+	public String VehiculoMasAlquilado () {
+		Map<Marca, Integer> listaMarcas;
+		listaMarcas = new HashMap<Marca, Integer>();
+		
+		for (Map.Entry<Marca, Integer> entrada: listaMarcas.entrySet()) {
+			Marca f= entrada.getValue();
+			
+			if ()
+			
+		}
 	}
 
 	/**
