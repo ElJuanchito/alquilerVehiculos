@@ -403,8 +403,8 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoNoExistenteException
 	 */
 
-	public Alquiler agregarAlquiler(Alquiler alquiler)
-			throws AlquilerYaExistenteException, AlquilerConParametrosNullException, VehiculoYaAlquiladoException, VerificarFechasException {
+	public Alquiler agregarAlquiler(Alquiler alquiler) throws AlquilerYaExistenteException,
+			AlquilerConParametrosNullException, VehiculoYaAlquiladoException, VerificarFechasException {
 		crearCodigoLibreAlquiler();
 		alquiler.setId(Alquiler.getLong());
 		throwVerificarFechas(alquiler);
@@ -415,15 +415,13 @@ public class EmpresaAlquiler {
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
 		return listaAlquileres.put(alquiler.getId(), alquiler);
-		
 	}
-	
-	private void throwVerificarFechas (Alquiler alquiler) throws VerificarFechasException {
-		if(!alquiler.enRangoDeFechaActual())
+
+	private void throwVerificarFechas(Alquiler alquiler) throws VerificarFechasException {
+		if (!alquiler.enRangoDeFechaActual())
 			throw new VerificarFechasException(
-					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler." );
+					"La fecha de alquiler no puedes ser anterior a la actual y la de regreso no puede ser anterior a la de alquiler.");
 	}
-	
 
 	/**
 	 * Elimina y retorna un <code>Alquiler</code> de la lista. Lanza una
@@ -559,5 +557,24 @@ public class EmpresaAlquiler {
 			
 		}
 	}
-	
+
+	/**
+	 * Busca en <b>listaAlquileres</b> la marca de vehiculo mas alquilada y la retorna.
+	 * @param listaAlquileres
+	 * @return la <b>Marca</b> mas alquilada o null si todas las marcas se alquilaron en mismo numero.
+	 */
+	public Marca obtenerMarcaMasAlquilada(Map<Long, Alquiler> listaAlquileres) {
+		Map<Marca, Integer> mapa = new HashMap<Marca, Integer>();
+		for (Alquiler alquiler : listaAlquileres.values()) {
+			Marca marca = alquiler.getVehiculo().getMarca();
+			mapa.put(marca, mapa.getOrDefault(marca, 0) + 1);
+			System.out.println("k: " + marca + ", v: " + mapa.get(marca));
+		}
+		System.out.println(mapa.toString());
+
+		if (mapa.values().stream().distinct().limit(2).count() <= 1)
+			return null;
+
+		return mapa.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElseGet(null);
+	}
 }
