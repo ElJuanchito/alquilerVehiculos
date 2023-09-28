@@ -32,6 +32,7 @@ public class EmpresaAlquiler {
 	private Map<Long, Alquiler> listaAlquileres;
 	private Map<Long, Factura> listaFacturas;
 
+
 	/**
 	 * Constructor de la clase <code>EmpresaAlquiler</code>
 	 */
@@ -526,15 +527,37 @@ public class EmpresaAlquiler {
 		return lista;
 	}
 	
-/*
+	/**
+	 * Halla una <code>sumaCostos<code> de todos los costos almacenados en <b>listaFcaturas<b> 
+	 * en un rango de fechas que entran por parametros.
+	 *  
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return
+	 */
 	public double TotalGanadoPorAlquileresEnRangoFechas (LocalDate fechaInicio, LocalDate fechaFin) {
+		double sumaCostos=0;
 		for (Map.Entry<Long, Factura> entrada: listaFacturas.entrySet()) {
 			Factura f= entrada.getValue();
 			
+			if (f.getFecha().isAfter(fechaInicio) && f.getFecha().isBefore(fechaFin)) {
+	            sumaCostos += f.getCosto(); 
+	        }
+		}
+		return sumaCostos;
+	}
+	
+	
+	public String VehiculoMasAlquilado () {
+		Map<Marca, Integer> listaMarcas;
+		listaMarcas = new HashMap<Marca, Integer>();
+		
+		for (Map.Entry<Marca, Integer> entrada: listaMarcas.entrySet()) {
+			Marca f= entrada.getValue();
+			
+			if ()
 			
 		}
-		
 	}
-*/
 	
 }
