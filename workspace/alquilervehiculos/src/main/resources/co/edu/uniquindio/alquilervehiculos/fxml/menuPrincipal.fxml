@@ -16,9 +16,9 @@
          <top>
             <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="93.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="88.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../source/logoVerticaBlanco.png" />
+                        <Image url="@../source/logoVerticalBlanco.png" />
                      </image>
                   </ImageView>
                </children>
@@ -69,7 +69,7 @@
             </VBox>
          </left>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/backgroundStyle.css" BorderPane.alignment="CENTER" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>
