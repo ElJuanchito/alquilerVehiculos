@@ -1,7 +1,6 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

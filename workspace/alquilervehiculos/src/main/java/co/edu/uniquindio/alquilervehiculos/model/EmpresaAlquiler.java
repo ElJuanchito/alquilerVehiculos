@@ -21,6 +21,7 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteExcepti
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
+import co.edu.uniquindio.alquilervehiculos.utils.UtilsLogger;
 import lombok.Getter;
 
 /**
@@ -33,7 +34,7 @@ public class EmpresaAlquiler {
 	private Map<String, Vehiculo> listaVehiculos;
 	private Map<Long, Alquiler> listaAlquileres;
 	private Map<Long, Factura> listaFacturas;
-	private static final Logger LOGGER = Logger.getLogger(EmpresaAlquiler.class.getName());
+	private static final Logger LOGGER = UtilsLogger.getInstancia().obtenerLogger(EmpresaAlquiler.class);
 
 
 	/**
@@ -308,7 +309,7 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoConNumerosNegativosException
 	 */
 	private void throwVerificarNumerosVehiculo(Vehiculo vehiculo) throws VehiculoConNumerosNegativosException {
-		if (vehiculo.getKilometraje() < 0 || vehiculo.getPrecio() < 0 || vehiculo.getNSillas() < 0)
+		if (vehiculo.getKilometraje() < 0 || vehiculo.getPrecio() < 0 || vehiculo.getNSillas() < 0) {
 			LOGGER.log(Level.WARNING, "Se estan ingresando parametros menores a 0 para la creacion del objeto Vehiculo");
 			throw new VehiculoConNumerosNegativosException(
 					"Se estan ingresando valores menores que 0 en la creacion del objeto vehiculo");}
