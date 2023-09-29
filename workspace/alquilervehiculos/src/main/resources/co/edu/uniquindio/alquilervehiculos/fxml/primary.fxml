@@ -10,16 +10,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
             <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="200.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="93.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../source/logoVertical.png" />
+                        <Image url="@../source/logoVerticaBlanco.png" />
                      </image>
                   </ImageView>
                </children>
