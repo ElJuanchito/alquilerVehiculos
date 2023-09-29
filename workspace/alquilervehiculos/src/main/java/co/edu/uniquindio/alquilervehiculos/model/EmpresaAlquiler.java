@@ -21,6 +21,7 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoNoExistenteExcepti
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaAlquiladoException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteException;
 import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
+import co.edu.uniquindio.alquilervehiculos.utils.UtilsLogger;
 import lombok.Getter;
 
 /**
@@ -33,7 +34,7 @@ public class EmpresaAlquiler {
 	private Map<String, Vehiculo> listaVehiculos;
 	private Map<Long, Alquiler> listaAlquileres;
 	private Map<Long, Factura> listaFacturas;
-	private static final Logger LOGGER = Logger.getLogger(EmpresaAlquiler.class.getName());
+	private static final Logger LOGGER = UtilsLogger.getInstancia().obtenerLogger(EmpresaAlquiler.class);
 
 
 	/**
