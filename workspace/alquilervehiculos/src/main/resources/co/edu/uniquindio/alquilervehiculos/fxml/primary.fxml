@@ -15,9 +15,9 @@
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0">
          <top>
-            <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+            <HBox alignment="TOP_CENTER" prefWidth="849.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="184.0" fitWidth="627.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="114.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../source/logoVerticalBlanco.png" />
                      </image>
@@ -32,7 +32,7 @@
             </HBox>
          </top>
          <left>
-            <VBox style="-fx-border-color: white;" BorderPane.alignment="CENTER">
+            <VBox prefHeight="606.0" prefWidth="219.0" style="-fx-border-color: white; -fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../styles/button.css" text="GESTIONAR ALQUILERES">
                      <VBox.margin>
@@ -42,7 +42,7 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </padding>
                   </Button>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" stylesheets="@../styles/button.css" text="GESTIONAR CLIENTES">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="47.0" prefWidth="136.0" stylesheets="@../styles/button.css" text="GESTIONAR CLIENTES">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -70,10 +70,11 @@
             </VBox>
          </left>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/backgroundStyle.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="389.0" prefWidth="861.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane opacity="0.18" prefHeight="634.0" prefWidth="903.0" style="-fx-background-color: white;" />
-               </children></AnchorPane>
+                  <Pane opacity="0.18" prefHeight="607.0" prefWidth="861.0" style="-fx-background-color: white;" />
+               </children>
+            </AnchorPane>
          </center>
       </BorderPane>
    </children>
