@@ -2,20 +2,22 @@
 
 /* Estilo base para el botón */
 .button {
-    -fx-background-color: red; /* Color de fondo */
-    -fx-text-fill: white; /* Color del texto */
+    -fx-background-color: white; /* Color de fondo */
+    -fx-text-fill: black; /* Color del texto */
     -fx-font-size: 14px; /* Tamaño de fuente */
     -fx-padding: 10px 20px; /* Relleno interno */
     -fx-border-radius: 5px; /* Radio de borde */
     -fx-font-weight: bold;
     -fx-cursor: hand;
     /*-fx-alignment: baseline-left;*/
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 5);
     
 }
 
 /* Estilo al pasar el mouse sobre el botón */
 .button:hover {
     -fx-background-color: #cc0000; /* Color de fondo al pasar el mouse */
+    -fx-effect: innershadow(gaussian, #aa0000, 1em, 0.5, 0.0, 0.0);
 }
 
 /* Estilo al hacer clic en el botón */
