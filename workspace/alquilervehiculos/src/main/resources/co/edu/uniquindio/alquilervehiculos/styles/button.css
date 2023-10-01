@@ -5,7 +5,7 @@
     -fx-background-color: white; /* Color de fondo */
     -fx-text-fill: black; /* Color del texto */
     -fx-font-size: 14px; /* Tamaño de fuente */
-    -fx-padding: 10px 20px; /* Relleno interno */
+    -fx-padding: 0px 10px; /* Relleno interno */
     -fx-border-radius: 5px; /* Radio de borde */
     -fx-font-weight: bold;
     -fx-cursor: hand;
