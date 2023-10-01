@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("registroCliente"));
+        scene = new Scene(loadFXML("menuPrincipal"));
         stage.setScene(scene);
         cargarFont();
         stage.show();
@@ -28,7 +28,7 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/co/edu/uniquindio/alquilervehiculos/fxml/" +fxml + ".fxml"));
         return fxmlLoader.load();
     }
