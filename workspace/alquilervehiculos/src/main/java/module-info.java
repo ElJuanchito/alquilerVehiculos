@@ -6,4 +6,6 @@ module co.edu.uniquindio.alquilervehiculos {
 
     opens co.edu.uniquindio.alquilervehiculos.application to javafx.fxml, javafx.controls;
     exports co.edu.uniquindio.alquilervehiculos.application;
+    
+    opens co.edu.uniquindio.alquilervehiculos.controllers to javafx.fxml;
 }

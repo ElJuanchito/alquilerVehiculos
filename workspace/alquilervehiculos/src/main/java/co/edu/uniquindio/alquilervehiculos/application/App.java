@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -17,8 +18,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("registroCliente"));
         stage.setScene(scene);
+        cargarFont();
         stage.show();
     }
 
@@ -34,5 +36,10 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
+    
+    public void cargarFont() {
+		Font.loadFont(App.class.getResource("/co/edu/uniquindio/alquilervehiculos/source/fonts/Heebo-Regular.ttf")
+				.toExternalForm(), 600);
+	}
 
 }

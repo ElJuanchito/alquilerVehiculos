@@ -1,0 +1,11 @@
+
+.cajaTexto{
+	-fx-text-fill: white;
+	-fx-font-size: 1.2em;
+	-fx-border-color: white;
+}
+
+.cajaTexto:focused{
+	-fx-border-width: 0 0 0.2em 0;
+	-fx-border-color:#591111;
+}
