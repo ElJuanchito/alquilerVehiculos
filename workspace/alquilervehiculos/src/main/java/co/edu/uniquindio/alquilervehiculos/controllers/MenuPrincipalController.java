@@ -38,7 +38,7 @@ public class MenuPrincipalController {
 	
 	private void gestionarClientesAction() {
 		try {
-			Node nodo = App.loadFXML("registroCliente");
+			Node nodo = App.loadFXML("gestionarCliente");
 			setCenter(nodo);
 		} catch (IOException e) {
 			e.printStackTrace();
