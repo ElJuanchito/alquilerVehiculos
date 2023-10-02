@@ -65,7 +65,7 @@ public class MenuPrincipalController {
 	}
 	
 	private void gestionarVehiculosAction() {
-		cambiarVentana("registroVehiculo");
+		cambiarVentana("gestionarVehiculo");
 	}
 
 	private void cambiarVentana(String fxmlname) {

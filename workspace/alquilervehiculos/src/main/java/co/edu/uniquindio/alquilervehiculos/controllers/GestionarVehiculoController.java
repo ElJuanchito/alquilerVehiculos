@@ -1,9 +1,14 @@
 package co.edu.uniquindio.alquilervehiculos.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import co.edu.uniquindio.alquilervehiculos.application.App;
+import co.edu.uniquindio.alquilervehiculos.model.Vehiculo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -25,25 +30,31 @@ public class GestionarVehiculoController {
     private TextField txtBuscar;
 
     @FXML
-    private TableView<?> tableVehiculos;
+    private TableView<Vehiculo> tableVehiculos;
 
     @FXML
-    private TableColumn<?, ?> colCedula;
+    private TableColumn<Vehiculo, String> colPlaca;
 
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn<Vehiculo, String> colNombre;
 
     @FXML
-    private TableColumn<?, ?> colTelefono;
+    private TableColumn<Vehiculo, String> colMarca;
 
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<Vehiculo, String> colModelo;
 
     @FXML
-    private TableColumn<?, ?> colCiudad;
+    private TableColumn<Vehiculo, String> colKilometraje;
 
     @FXML
-    private TableColumn<?, ?> colDireccion;
+    private TableColumn<Vehiculo, String> colPrecio;
+
+    @FXML
+    private TableColumn<Vehiculo, String> colAutomatico;
+
+    @FXML
+    private TableColumn<Vehiculo, String> colSillas;
 
     @FXML
     private Button btnEliminar;
@@ -58,6 +69,12 @@ public class GestionarVehiculoController {
 
     @FXML
     void registrarEvent(ActionEvent event) {
+    	try {
+			Node nodo = App.loadFXML("registroVehiculo");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
     }
 

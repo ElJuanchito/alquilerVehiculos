@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.alquilervehiculos.controllers.GestionarClienteController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.alquilervehiculos.controllers.GestionarVehiculoController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
@@ -21,15 +21,14 @@
       <TextField fx:id="txtBuscar" promptText="Buscar" styleClass="cajaTexto" stylesheets="@../styles/textfieldStyle.css" />
       <TableView fx:id="tableVehiculos" prefHeight="200.0" prefWidth="636.0">
         <columns>
-            <TableColumn fx:id="colCedula" prefWidth="75.0" text="Placa" />
+            <TableColumn fx:id="colPlaca" prefWidth="75.0" text="Placa" />
           <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
-          <TableColumn fx:id="colTelefono" prefWidth="75.0" text="Marca" />
-            <TableColumn fx:id="colEmail" prefWidth="75.0" text="Modelo" />
-            <TableColumn fx:id="colCiudad" prefWidth="75.0" text="Foto" />
-            <TableColumn fx:id="colDireccion" prefWidth="75.0" text="Kilometraje" />
-            <TableColumn prefWidth="75.0" text="Precio" />
-            <TableColumn prefWidth="75.0" text="Automatico" />
-            <TableColumn prefWidth="75.0" text="Sillas" />
+          <TableColumn fx:id="colMarca" prefWidth="75.0" text="Marca" />
+            <TableColumn fx:id="colModelo" prefWidth="75.0" text="Modelo" />
+            <TableColumn fx:id="colKilometraje" prefWidth="75.0" text="Kilometraje" />
+            <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Precio" />
+            <TableColumn fx:id="colAutomatico" prefWidth="75.0" text="Automatico" />
+            <TableColumn fx:id="colSillas" prefWidth="75.0" text="Sillas" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
