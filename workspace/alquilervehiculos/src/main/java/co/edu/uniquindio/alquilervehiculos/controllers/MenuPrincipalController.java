@@ -26,19 +26,51 @@ public class MenuPrincipalController {
 	private URL location;
 
 	@FXML
-	private HBox btnGestionClientes;
+    private HBox btnGestionAlquileres;
 
-	@FXML
-	private BorderPane centerPane;
+    @FXML
+    private HBox btnGestionClientes;
 
-	@FXML
+    @FXML
+    private HBox btnGestionFacturas;
+
+    @FXML
+    private HBox btnGestionVehiculos;
+
+    @FXML
+    private BorderPane centerPane;
+    
+    @FXML
 	void gestionarClientesEvent(MouseEvent event) {
 		gestionarClientesAction();
 	}
+    
+    @FXML
+    void gestionarAlquileresEvent(MouseEvent event) {
+
+    }
+
+    @FXML
+    void gestionarFacturasEvent(MouseEvent event) {
+
+    }
+
+    @FXML
+    void gestionarVehiculosEvent(MouseEvent event) {
+    	gestionarVehiculosAction();
+    }
 	
 	private void gestionarClientesAction() {
+		cambiarVentana("gestionarCliente");
+	}
+	
+	private void gestionarVehiculosAction() {
+		cambiarVentana("registroVehiculo");
+	}
+
+	private void cambiarVentana(String fxmlname) {
 		try {
-			Node nodo = App.loadFXML("registroCliente");
+			Node nodo = App.loadFXML(fxmlname);
 			setCenter(nodo);
 		} catch (IOException e) {
 			e.printStackTrace();
