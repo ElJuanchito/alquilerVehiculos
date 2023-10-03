@@ -77,6 +77,7 @@ public class MenuPrincipalController {
 
     @FXML
     void gestionarFacturasEvent(MouseEvent event) {
+    	gestionarFacturaAction();
 
     }
 
@@ -95,6 +96,10 @@ public class MenuPrincipalController {
 	
 	private void gestionarAlquileresAction() {
 		cambiarVentana("gestionarAlquiler");
+	}
+	
+	private void gestionarFacturaAction() {
+		cambiarVentana("gestionarFactura");
 	}
 
 	private void cambiarVentana(String fxmlname) {
