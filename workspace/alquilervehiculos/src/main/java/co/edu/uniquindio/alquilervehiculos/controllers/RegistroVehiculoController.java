@@ -1,9 +1,13 @@
 package co.edu.uniquindio.alquilervehiculos.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import co.edu.uniquindio.alquilervehiculos.application.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -12,76 +16,91 @@ import javafx.scene.control.TextField;
 
 public class RegistroVehiculoController {
 
-	@FXML
-	private ResourceBundle resources;
+    @FXML
+    private ResourceBundle resources;
 
-	@FXML
-	private URL location;
+    @FXML
+    private URL location;
 
-	@FXML
-	private Button btnImagen;
+    @FXML
+    private Button btnBack;
 
-	@FXML
-	private ComboBox<String> cbTransmision;
+    @FXML
+    private Label lblTitulo;
 
-	@FXML
-	private Label lblFoto;
+    @FXML
+    private Label lblPlaca;
 
-	@FXML
-	private Label lblKilometraje;
+    @FXML
+    private Label lblNombre;
 
-	@FXML
-	private Label lblMarca;
+    @FXML
+    private Label lblMarca;
 
-	@FXML
-	private Label lblModelo;
+    @FXML
+    private Label lblModelo;
 
-	@FXML
-	private Label lblNombre;
+    @FXML
+    private Label lblFoto;
 
-	@FXML
-	private Label lblPlaca;
+    @FXML
+    private Label lblKilometraje;
 
-	@FXML
-	private Label lblPrecio;
+    @FXML
+    private Label lblPrecio;
 
-	@FXML
-	private Label lblSillas;
+    @FXML
+    private Label lblTransmision;
 
-	@FXML
-	private Label lblTitulo;
+    @FXML
+    private Label lblSillas;
 
-	@FXML
-	private Label lblTransmision;
+    @FXML
+    private TextField txtPlaca;
 
-	@FXML
-	private Spinner<Integer> spinSillas;
+    @FXML
+    private TextField txtNombre;
 
-	@FXML
-	private TextField txtKilometraje;
+    @FXML
+    private TextField txtMarca;
 
-	@FXML
-	private TextField txtMarca;
+    @FXML
+    private TextField txtModelo;
 
-	@FXML
-	private TextField txtModelo;
+    @FXML
+    private TextField txtKilometraje;
 
-	@FXML
-	private TextField txtNombre;
+    @FXML
+    private Button btnImagen;
 
-	@FXML
-	private TextField txtPlaca;
+    @FXML
+    private TextField txtPrecio;
 
-	@FXML
-	private TextField txtPrecio;
+    @FXML
+    private ComboBox<String> cbTransmision;
 
-	@FXML
-	void selectImageEvent(ActionEvent event) {
+    @FXML
+    private Spinner<Integer> spinSillas;
 
-	}
+    @FXML
+    void backEvent(ActionEvent event) {
+    	try {
+			Node nodo = App.loadFXML("gestionarVehiculo");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-	@FXML
-	void initialize() {
-	}
 
+    }
+
+    @FXML
+    void selectImageEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void initialize() {
+
+    }
 }
