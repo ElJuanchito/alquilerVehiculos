@@ -24,19 +24,10 @@ public class RegistroClienteController {
     private Button btnBack;
 
     @FXML
-    private Label lblTitulo;
+    private Button btnRegistrar;
 
     @FXML
     private Label lblCedula;
-
-    @FXML
-    private Label lblNombre;
-
-    @FXML
-    private Label lblTelefono;
-
-    @FXML
-    private Label lblEmail;
 
     @FXML
     private Label lblCiudad;
@@ -45,22 +36,34 @@ public class RegistroClienteController {
     private Label lblDireccion;
 
     @FXML
+    private Label lblEmail;
+
+    @FXML
+    private Label lblNombre;
+
+    @FXML
+    private Label lblTelefono;
+
+    @FXML
+    private Label lblTitulo;
+
+    @FXML
     private TextField txtCedula;
-
-    @FXML
-    private TextField txtNombre;
-
-    @FXML
-    private TextField txtTelefono;
-
-    @FXML
-    private TextField txtEmail;
 
     @FXML
     private TextField txtCiudad;
 
     @FXML
     private TextField txtDireccion;
+
+    @FXML
+    private TextField txtEmail;
+
+    @FXML
+    private TextField txtNombre;
+
+    @FXML
+    private TextField txtTelefono;
 
     @FXML
     void backEvent(ActionEvent event) {
@@ -72,6 +75,12 @@ public class RegistroClienteController {
 		}
 
     }
+
+    @FXML
+    void registrarEvent(ActionEvent event) {
+
+    }
+
 
     @FXML
     void initialize() {
