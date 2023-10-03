@@ -1,9 +1,12 @@
 package co.edu.uniquindio.alquilervehiculos.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -32,24 +35,28 @@ public class MasFuncionesController {
 
     @FXML
     private Label lblTitle;
-
-    @FXML
-    void alquiladosEnFechaEvent(ActionEvent event) {
-
-    }
-
     @FXML
     void cambiarIdiomaEvent(ActionEvent event) {
 
     }
 
-    @FXML
-    void marcaMasAlquiladaEvent(ActionEvent event) {
+    void alquiladosEnUnaFechaEvent(ActionEvent event) {
+    	try {
+			Node nodo = App.loadFXML("alquiladosEnUnaFecha");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 
     }
 
     @FXML
-    void totalGanadoEnFechaEvent(ActionEvent event) {
+    void marcaMasAlquiladaEvent(ActionEvent event) {
+    }
+
+    @FXML
+    void totalGanadoEnFechasEvent(ActionEvent event) {
 
     }
 
