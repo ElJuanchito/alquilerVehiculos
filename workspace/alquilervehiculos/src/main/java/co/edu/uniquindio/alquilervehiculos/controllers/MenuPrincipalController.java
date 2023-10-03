@@ -36,6 +36,9 @@ public class MenuPrincipalController {
 
     @FXML
     private HBox btnGestionVehiculos;
+    
+    @FXML
+    private HBox btnMasFunciones;
 
     @FXML
     private BorderPane centerPane;
@@ -47,7 +50,13 @@ public class MenuPrincipalController {
     
     @FXML
     void gestionarAlquileresEvent(MouseEvent event) {
+    	gestionarAlquileresAction();
 
+    }
+    
+    @FXML
+    void masFuncionesEvent(MouseEvent event) {
+   
     }
 
     @FXML
@@ -66,6 +75,10 @@ public class MenuPrincipalController {
 	
 	private void gestionarVehiculosAction() {
 		cambiarVentana("gestionarVehiculo");
+	}
+	
+	private void gestionarAlquileresAction() {
+		cambiarVentana("gestionarAlquiler");
 	}
 
 	private void cambiarVentana(String fxmlname) {
