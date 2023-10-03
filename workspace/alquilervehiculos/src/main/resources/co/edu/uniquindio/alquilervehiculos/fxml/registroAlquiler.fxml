@@ -15,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.alquilervehiculos.controllers.RegistroAlquilerController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.alquilervehiculos.controllers.RegistroAlquilerController">
    <children>
       <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backEvent" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-cursor: hand;">
          <graphic>
@@ -26,7 +25,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
             <SVGPath content="M4 4V20C4 21.1046 4.89543 22 6 22L18 22C19.1046 22 20 21.1046 20 20V8.34162C20 7.8034 19.7831 7.28789 19.3982 6.91161L14.9579 2.56999C14.5842 2.20459 14.0824 2 13.5597 2L6 2C4.89543 2 4 2.89543 4 4Z" fill="WHITE" />
-            <Label fx:id="lblTitle" stylesheets="@../styles/textStyle.css" text="Registro Alquiler" />
+            <Label fx:id="lblTitle" styleClass="titulo" stylesheets="@../styles/textStyle.css" text="Registro Alquiler" />
          </children>
       </HBox>
       <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">

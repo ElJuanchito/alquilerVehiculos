@@ -593,4 +593,20 @@ public class EmpresaAlquiler {
 
 		return mapa.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElseGet(null);
 	}
+	
+	public List<Cliente> obtenerListaClientes(){
+		return new ArrayList<Cliente>(listaClientes.values());
+	}
+	
+	public List<Vehiculo> obtenerListaVehiculos(){
+		return new ArrayList<Vehiculo>(listaVehiculos.values());
+	}
+	
+	public List<Alquiler> obtenerListaAlquileres(){
+		return new ArrayList<Alquiler>(listaAlquileres.values());
+	}
+	
+	public List<Factura> obtenerListaFacturas(){
+		return new ArrayList<Factura>(listaFacturas.values());
+	}
 }
