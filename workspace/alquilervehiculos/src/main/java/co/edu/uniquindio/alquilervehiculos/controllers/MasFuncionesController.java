@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.alquilervehiculos.application.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -40,6 +41,7 @@ public class MasFuncionesController {
 
     }
 
+    @FXML
     void alquiladosEnUnaFechaEvent(ActionEvent event) {
     	try {
 			Node nodo = App.loadFXML("alquiladosEnUnaFecha");
@@ -47,8 +49,6 @@ public class MasFuncionesController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
     }
 
     @FXML
@@ -57,11 +57,23 @@ public class MasFuncionesController {
 
     @FXML
     void totalGanadoEnFechasEvent(ActionEvent event) {
+    	try {
+			Node nodo = App.loadFXML("totalGanadoEnFechas");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
     }
 
     @FXML
     void vehiculosDisponiblesEnFechasEvent(ActionEvent event) {
+    	try {
+			Node nodo = App.loadFXML("vehiculosDisponiblesEnFechas");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
     }
 
