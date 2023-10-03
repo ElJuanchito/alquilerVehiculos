@@ -2,6 +2,7 @@ package co.edu.uniquindio.alquilervehiculos.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,13 +16,13 @@ public class MasFuncionesController {
     private URL location;
 
     @FXML
-    private Label lblTitle;
+    private Button btnAlquiladosEnUnaFecha;
+
+    @FXML
+    private Button btnIdioma;
 
     @FXML
     private Button btnMarcaMasAlquilada;
-
-    @FXML
-    private Button btnAlquiladosEnUnaFecha;
 
     @FXML
     private Button btnTotalGanadoEnFechas;
@@ -30,7 +31,36 @@ public class MasFuncionesController {
     private Button btnVehiculosDisponiblesEnFechas;
 
     @FXML
+    private Label lblTitle;
+
+    @FXML
+    void alquiladosEnFechaEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cambiarIdiomaEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void marcaMasAlquiladaEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void totalGanadoEnFechaEvent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void vehiculosDisponiblesEnFechasEvent(ActionEvent event) {
+
+    }
+
+    @FXML
     void initialize() {
 
     }
+
 }
