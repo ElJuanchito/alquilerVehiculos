@@ -1,11 +1,14 @@
 package co.edu.uniquindio.alquilervehiculos.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import co.edu.uniquindio.alquilervehiculos.application.App;
 import co.edu.uniquindio.alquilervehiculos.model.Alquiler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -55,6 +58,12 @@ public class GestionarAlquilerController {
 
     @FXML
     void alquilarEvent(ActionEvent event) {
+    	try {
+			Node nodo = App.loadFXML("registroAlquiler");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
     }
 
