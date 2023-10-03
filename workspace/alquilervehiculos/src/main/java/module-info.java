@@ -5,7 +5,7 @@ module co.edu.uniquindio.alquilervehiculos {
     requires lombok;
 	requires java.logging;
 
-    opens co.edu.uniquindio.alquilervehiculos.application to javafx.fxml, javafx.controls, javafx.graphics;   
+    opens co.edu.uniquindio.alquilervehiculos.application to javafx.fxml, javafx.controls; 
     opens co.edu.uniquindio.alquilervehiculos.controllers to javafx.fxml;
     
     exports co.edu.uniquindio.alquilervehiculos.application;
