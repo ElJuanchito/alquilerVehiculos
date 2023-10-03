@@ -72,6 +72,7 @@ public class MenuPrincipalController {
     
     @FXML
     void masFuncionesEvent(MouseEvent event) {
+    	masFuncionesAction();
    
     }
 
@@ -100,6 +101,10 @@ public class MenuPrincipalController {
 	
 	private void gestionarFacturaAction() {
 		cambiarVentana("gestionarFactura");
+	}
+	
+	private void masFuncionesAction() {
+		cambiarVentana("masFunciones");
 	}
 
 	private void cambiarVentana(String fxmlname) {
