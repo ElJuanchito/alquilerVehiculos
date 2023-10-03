@@ -37,7 +37,7 @@
                   <HBox fx:id="btnGestionClientes" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#gestionarClientesEvent" spacing="10.0" styleClass="boton" stylesheets="@../styles/button.css">
                      <children>
                         <SVGPath content="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1,1,0,0,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1A10,10,0,0,0,15.71,12.71ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z" />
-                        <Label text="Gestionar Clientes">
+                        <Label fx:id="lblGestionarClientes" text="Gestionar Clientes">
                            <HBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>
@@ -53,7 +53,7 @@
                   <HBox fx:id="btnGestionVehiculos" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#gestionarVehiculosEvent" spacing="10.0" styleClass="boton" stylesheets="@../styles/button.css">
                      <children>
                         <SVGPath content="M6.62,13.08a.9.9,0,0,0-.54.54,1,1,0,0,0,1.3,1.3,1.15,1.15,0,0,0,.33-.21,1.15,1.15,0,0,0,.21-.33A.84.84,0,0,0,8,14a1.05,1.05,0,0,0-.29-.71A1,1,0,0,0,6.62,13.08Zm13.14-4L18.4,5.05a3,3,0,0,0-2.84-2H8.44A3,3,0,0,0,5.6,5.05L4.24,9.11A3,3,0,0,0,2,12v4a3,3,0,0,0,2,2.82V20a1,1,0,0,0,2,0V19H18v1a1,1,0,0,0,2,0V18.82A3,3,0,0,0,22,16V12A3,3,0,0,0,19.76,9.11ZM7.49,5.68A1,1,0,0,1,8.44,5h7.12a1,1,0,0,1,1,.68L17.61,9H6.39ZM20,16a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H19a1,1,0,0,1,1,1Zm-3.38-2.92a.9.9,0,0,0-.54.54,1,1,0,0,0,1.3,1.3.9.9,0,0,0,.54-.54A.84.84,0,0,0,18,14a1.05,1.05,0,0,0-.29-.71A1,1,0,0,0,16.62,13.08ZM13,13H11a1,1,0,0,0,0,2h2a1,1,0,0,0,0-2Z" />
-                        <Label text="Gestionar Vehiculos">
+                        <Label fx:id="lblGestionarVehiculos" text="Gestionar Vehiculos">
                            <HBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>
@@ -66,7 +66,7 @@
                   <HBox fx:id="btnGestionAlquileres" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#gestionarAlquileresEvent" spacing="10.0" styleClass="boton" stylesheets="@../styles/button.css">
                      <children>
                         <SVGPath content="M4 4V20C4 21.1046 4.89543 22 6 22L18 22C19.1046 22 20 21.1046 20 20V8.34162C20 7.8034 19.7831 7.28789 19.3982 6.91161L14.9579 2.56999C14.5842 2.20459 14.0824 2 13.5597 2L6 2C4.89543 2 4 2.89543 4 4Z" fill="WHITE" stroke="BLACK" />
-                        <Label text="Gestionar Alquileres">
+                        <Label fx:id="lblGestionarAlquileres" text="Gestionar Alquileres">
                            <HBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>
@@ -82,7 +82,7 @@
                   <HBox fx:id="btnGestionFacturas" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#gestionarFacturasEvent" spacing="10.0" styleClass="boton" stylesheets="@../styles/button.css">
                      <children>
                         <SVGPath content="M11 10.5H12.5V9M11 4.5H12.5V6M4 4.5H2.5V6M2.5 9V10.5H4M7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5ZM1.5 2.5H13.5C14.0523 2.5 14.5 2.94772 14.5 3.5V11.5C14.5 12.0523 14.0523 12.5 13.5 12.5H1.5C0.947716 12.5 0.5 12.0523 0.5 11.5V3.5C0.5 2.94772 0.947715 2.5 1.5 2.5Z" fill="WHITE" stroke="BLACK" />
-                        <Label text="Gestionar Facturas">
+                        <Label fx:id="lblGestionarFacturas" text="Gestionar Facturas">
                            <HBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>
@@ -105,7 +105,7 @@
                               <SVGPath content="M46,27c-2.7614021,0-5,2.2385998-5,5s2.2385979,5,5,5c2.7613983,0,5-2.2386017,5-5S48.7613983,27,46,27z M46,35c-1.6542015,0-3-1.3456993-3-3c0-1.6541996,1.3457985-3,3-3c1.6543007,0,3,1.3458004,3,3C49,33.6543007,47.6543007,35,46,35z" scaleX="0.5" scaleY="0.5" translateX="-7.0" />
                            </children>
                         </Group>
-                        <Label text="Mas Funciones">
+                        <Label fx:id="lblMasFunciones" text="Mas Funciones">
                            <HBox.margin>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </HBox.margin>

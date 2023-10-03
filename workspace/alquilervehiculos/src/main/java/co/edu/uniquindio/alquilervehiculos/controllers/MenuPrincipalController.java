@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import co.edu.uniquindio.alquilervehiculos.application.App;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -39,6 +40,21 @@ public class MenuPrincipalController {
     
     @FXML
     private HBox btnMasFunciones;
+    
+    @FXML
+    private Label lblGestionarAlquileres;
+    
+    @FXML
+    private Label lblGestionarClientes;
+    
+    @FXML
+    private Label lblGestionarFacturas;
+    
+    @FXML
+    private Label lblGestionarVehiculos;
+    
+    @FXML
+    private Label lblMasFunciones;
 
     @FXML
     private BorderPane centerPane;
