@@ -1,5 +1,7 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
+import java.util.Arrays;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
