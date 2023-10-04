@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.alquilervehiculos.application.App;
+import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -58,6 +59,17 @@ public class MenuPrincipalController {
 
     @FXML
     private BorderPane centerPane;
+    
+    @FXML
+    void initialize() {
+    	resources = UtilsProperties.getInstancia().obtenerRecursos();
+    	
+    	lblGestionarClientes.setText(resources.getString("MenuPrincipal.lblGestionClientes"));
+    	lblGestionarVehiculos.setText(resources.getString("MenuPrincipal.lblGestionVehiculos"));
+    	lblGestionarAlquileres.setText(resources.getString("MenuPrincipal.lblGestionAlquileres"));
+    	lblGestionarFacturas.setText(resources.getString("MenuPrincipal.lblGestionFacturas"));
+    	lblMasFunciones.setText(resources.getString("MenuPrincipal.lblMasFunciones"));
+    }
     
     @FXML
 	void gestionarClientesEvent(MouseEvent event) {
@@ -115,11 +127,6 @@ public class MenuPrincipalController {
 			e.printStackTrace();
 		}
 	}
-
-	@FXML
-    void initialize() {
-
-    }
 
 	public void setCenter(Node node) {
 		centerPane.setCenter(node);
