@@ -125,6 +125,8 @@ public class RegistroClienteController {
 				.build();
 		try {
 			empresa.agregarCliente(cliente);
+			new Alert(AlertType.CONFIRMATION, "Cliente agregado con exito").show();
+			backAction();
 		} catch (ClienteYaExistenteException e) {
 			new Alert(AlertType.WARNING, e.getMessage()).show();
 		} catch (ClienteConParametrosNullException e) {

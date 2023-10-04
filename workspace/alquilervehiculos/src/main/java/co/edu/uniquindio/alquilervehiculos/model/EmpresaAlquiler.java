@@ -596,15 +596,12 @@ public class EmpresaAlquiler {
 	 * @return la <b>Marca</b> mas alquilada o null si todas las marcas se
 	 *         alquilaron en mismo numero.
 	 */
-	public Marca obtenerMarcaMasAlquilada(Map<Long, Alquiler> listaAlquileres) {
+	public Marca obtenerMarcaMasAlquilada() {
 		Map<Marca, Integer> mapa = new HashMap<Marca, Integer>();
 		for (Alquiler alquiler : listaAlquileres.values()) {
 			Marca marca = alquiler.getVehiculo().getMarca();
 			mapa.put(marca, mapa.getOrDefault(marca, 0) + 1);
-			System.out.println("k: " + marca + ", v: " + mapa.get(marca));
 		}
-		System.out.println(mapa.toString());
-
 		if (mapa.values().stream().distinct().limit(2).count() <= 1)
 			return null;
 

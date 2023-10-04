@@ -76,7 +76,7 @@ public class ValidarClienteController {
 	private void validarAction(){
 		if(empresa.verificarCliente(txtCedula.getText().trim())) {
 			new Alert(AlertType.CONFIRMATION, "El cliente si existe").show();
-			btnSiguiente.isVisible();
+			btnSiguiente.setVisible(true);
 			return;
 		}
 		new Alert(AlertType.CONFIRMATION, "El cliente no existe").show();

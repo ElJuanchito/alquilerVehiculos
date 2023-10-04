@@ -5,9 +5,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.alquilervehiculos.application.App;
+import co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler;
+import co.edu.uniquindio.alquilervehiculos.model.Marca;
+import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -36,9 +41,29 @@ public class MasFuncionesController {
 
     @FXML
     private Label lblTitle;
+    
+    private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
+    
+    @FXML
+    void initialize() {
+    	resources = UtilsProperties.getInstancia().obtenerRecursos();
+    	
+    	lblTitle.setText(resources.getString("MasFunciones.lblTitle"));
+    	btnMarcaMasAlquilada.setText(resources.getString("MasFunciones.btnMarcaMasAlquilada"));
+    	btnAlquiladosEnUnaFecha.setText(resources.getString("MasFunciones.btnAlquiladosEnUnaFecha"));
+    	btnTotalGanadoEnFechas.setText(resources.getString("MasFunciones.btnTotalGanadoEnFechas"));
+    	btnVehiculosDisponiblesEnFechas.setText(resources.getString("MasFunciones.btnVehiculosDisponiblesEnFechas"));
+    	btnIdioma.setText(resources.getString("MasFunciones.btnIdioma"));
+    }
+    
     @FXML
     void cambiarIdiomaEvent(ActionEvent event) {
-
+    	try {
+			Node nodo = App.loadFXML("cambiarIdioma");
+			MenuPrincipalController.getInstance().setCenter(nodo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -53,6 +78,8 @@ public class MasFuncionesController {
 
     @FXML
     void marcaMasAlquiladaEvent(ActionEvent event) {
+    	Marca marca = empresa.obtenerMarcaMasAlquilada();
+    	new Alert(AlertType.CONFIRMATION, "La marca mas alquilada es" + marca.toString()).show();
     }
 
     @FXML
@@ -74,11 +101,6 @@ public class MasFuncionesController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-    }
-
-    @FXML
-    void initialize() {
 
     }
 

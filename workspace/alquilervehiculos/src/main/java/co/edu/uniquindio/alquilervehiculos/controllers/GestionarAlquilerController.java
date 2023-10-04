@@ -76,7 +76,7 @@ public class GestionarAlquilerController {
 		FxUtility.setAsNumberTextfield(txtBuscar);
 
 		lblTitle.setText(resources.getString("GestionarAlquiler.lblTitle"));
-		txtBuscar.setText(resources.getString("GestionarAlquiler.txtBuscar"));
+		txtBuscar.setPromptText(resources.getString("GestionarAlquiler.txtBuscar"));
 		colId.setText(resources.getString("GestionarAlquiler.colId"));
 		colFactura.setText(resources.getString("GestionarAlquiler.colFactura"));
 		colCliente.setText(resources.getString("GestionarAlquiler.colCliente"));

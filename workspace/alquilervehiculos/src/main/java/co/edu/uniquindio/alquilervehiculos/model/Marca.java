@@ -1,7 +1,5 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
-import java.util.Arrays;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,7 +13,11 @@ public enum Marca {
 	private String nombre;
 	
 	public static String[] obtenerTextos() {
-		return (String[]) Arrays.stream(values()).map(Marca::getNombre).toArray();
+		String [] arreglo = new String[values().length];
+		for(int i = 0; i < arreglo.length; i++) {
+			arreglo[i] = values()[i].getNombre();
+		}
+		return arreglo;
 	}
 
 }

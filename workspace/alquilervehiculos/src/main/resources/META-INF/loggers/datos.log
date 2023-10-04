@@ -1,2 +1,22 @@
 oct. 03, 2023 8:20:29 P. M. javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:19:06 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:20:17 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:42:22 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:42:50 A. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteco.edu.uniquindio.alquilervehiculos.model.Cliente@65fHa sido agregado a la lista
+oct. 04, 2023 1:43:00 A. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler throwClienteYaExistente
+WARNING: El cliente identificado con la cedula:15ya existe en la lista.
+oct. 04, 2023 1:43:29 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:47:56 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:48:15 A. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteco.edu.uniquindio.alquilervehiculos.model.Cliente@65eHa sido agregado a la lista
+oct. 04, 2023 1:49:58 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 04, 2023 1:52:12 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
