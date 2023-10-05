@@ -21,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -31,7 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class RegistroAlquilerController {
+public class RegistroAlquilerController implements Initializable {
 
 	@FXML
 	private ResourceBundle resources;
@@ -106,26 +107,26 @@ public class RegistroAlquilerController {
 
 	private ObservableList<Vehiculo> listaObservable;
 
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-
-		lblTitle.setText(resources.getString("RegistroAlquiler.lblTitle"));
-		lblCedula.setText(resources.getString("RegistroAlquiler.lblCedula"));
-		lblPlaca.setText(resources.getString("RegistroAlquiler.lblPlaca"));
-		lblFechaAlquiler.setText(resources.getString("RegistroAlquiler.lblFechaAlquiler"));
-		lblFechaRegreso.setText(resources.getString("RegistroAlquiler.lblFechaRegreso"));
-		lblSeleccionaVehiculo.setText(resources.getString("RegistroAlquiler.lblSeleccionaVehiculo"));
-		colPlaca.setText(resources.getString("RegistroAlquiler.colPlaca"));
-		colNombre.setText(resources.getString("RegistroAlquiler.colNombre"));
-		colMarca.setText(resources.getString("RegistroAlquiler.colMarca"));
-		colModelo.setText(resources.getString("RegistroAlquiler.colModelo"));
-		colKilometraje.setText(resources.getString("RegistroAlquiler.colKilometraje"));
-		colPrecio.setText(resources.getString("RegistroAlquiler.colPrecio"));
-		colAutomatico.setText(resources.getString("RegistroAlquiler.colAutomatico"));
-		colSillas.setText(resources.getString("RegistroAlquiler.colSillas"));
-		btnAlquilar.setText(resources.getString("RegistroAlquiler.btnAlquilar"));
-
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitle.setText(bundle.getString("RegistroAlquiler.lblTitle"));
+			lblCedula.setText(bundle.getString("RegistroAlquiler.lblCedula"));
+			lblPlaca.setText(bundle.getString("RegistroAlquiler.lblPlaca"));
+			lblFechaAlquiler.setText(bundle.getString("RegistroAlquiler.lblFechaAlquiler"));
+			lblFechaRegreso.setText(bundle.getString("RegistroAlquiler.lblFechaRegreso"));
+			lblSeleccionaVehiculo.setText(bundle.getString("RegistroAlquiler.lblSeleccionaVehiculo"));
+			colPlaca.setText(bundle.getString("RegistroAlquiler.colPlaca"));
+			colNombre.setText(bundle.getString("RegistroAlquiler.colNombre"));
+			colMarca.setText(bundle.getString("RegistroAlquiler.colMarca"));
+			colModelo.setText(bundle.getString("RegistroAlquiler.colModelo"));
+			colKilometraje.setText(bundle.getString("RegistroAlquiler.colKilometraje"));
+			colPrecio.setText(bundle.getString("RegistroAlquiler.colPrecio"));
+			colAutomatico.setText(bundle.getString("RegistroAlquiler.colAutomatico"));
+			colSillas.setText(bundle.getString("RegistroAlquiler.colSillas"));
+			btnAlquilar.setText(bundle.getString("RegistroAlquiler.btnAlquilar"));
+		});
+		
 		FxUtility.setAsNumberTextfield(txtCedula);
 
 		actualizarTabla();
@@ -153,6 +154,9 @@ public class RegistroAlquilerController {
 				.fechaAlquiler(dtFechaAlquiler.getValue()).fechaRegreso(dtFechaRegreso.getValue()).build();
 		try {
 			empresa.agregarAlquiler(alquiler);
+			ModelFactoryController.getInstance().guardarAlquileres();
+			new Alert(AlertType.CONFIRMATION, "El alquiler se creo con exito").show();
+			backAction();
 		} catch (AlquilerYaExistenteException | AlquilerConParametrosNullException | VehiculoYaAlquiladoException
 				| VerificarFechasException e) {
 			new Alert(AlertType.ERROR, e.getMessage()).show();

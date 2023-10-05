@@ -76,4 +76,8 @@ public class Alquiler implements Serializable {
 	public boolean enRangoDeFechaActual () {
 		return this.fechaAlquiler.isAfter(LocalDate.now()) || fechaAlquiler.equals(LocalDate.now()) && fechaRegreso.isAfter(fechaAlquiler);
 	}
+	
+	public boolean empiezaPor(Long id) {
+		return getId().toString().startsWith(id.toString());
+	}
 }

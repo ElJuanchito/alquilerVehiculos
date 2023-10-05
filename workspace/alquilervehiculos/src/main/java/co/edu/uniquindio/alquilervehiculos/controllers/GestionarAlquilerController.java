@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,7 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class GestionarAlquilerController {
+public class GestionarAlquilerController implements Initializable{
 
 	@FXML
 	private ResourceBundle resources;
@@ -33,58 +34,45 @@ public class GestionarAlquilerController {
 	private URL location;
 
 	@FXML
-	private Label lblTitle;
+    private Button btnAlquilar;
 
-	@FXML
-	private TextField txtBuscar;
+    @FXML
+    private Button btnEliminar;
 
-	@FXML
-	private TableView<Alquiler> tablaAlquileres;
+    @FXML
+    private TableColumn<Alquiler, String> colCliente;
 
-	@FXML
-	private TableColumn<Alquiler, String> colId;
+    @FXML
+    private TableColumn<Alquiler, String> colFAlquiler;
 
-	@FXML
-	private TableColumn<Alquiler, String> colFactura;
+    @FXML
+    private TableColumn<Alquiler, String> colFRegreso;
 
-	@FXML
-	private TableColumn<Alquiler, String> colCliente;
+    @FXML
+    private TableColumn<Alquiler, String> colId;
 
-	@FXML
-	private TableColumn<Alquiler, String> colVehiculo;
+    @FXML
+    private TableColumn<Alquiler, String> colVehiculo;
 
-	@FXML
-	private TableColumn<Alquiler, String> colAlquiler;
+    @FXML
+    private Label lblTitle;
 
-	@FXML
-	private TableColumn<Alquiler, String> colRegreso;
+    @FXML
+    private TableView<Alquiler> tablaAlquileres;
 
-	@FXML
-	private Button btnEliminar;
-
-	@FXML
-	private Button btnAlquilar;
+    @FXML
+    private TextField txtBuscar;
 
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
 	private ObservableList<Alquiler> listaObservable;
-
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-		
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		FxUtility.setAsNumberTextfield(txtBuscar);
-
-		lblTitle.setText(resources.getString("GestionarAlquiler.lblTitle"));
-		txtBuscar.setPromptText(resources.getString("GestionarAlquiler.txtBuscar"));
-		colId.setText(resources.getString("GestionarAlquiler.colId"));
-		colFactura.setText(resources.getString("GestionarAlquiler.colFactura"));
-		colCliente.setText(resources.getString("GestionarAlquiler.colCliente"));
-		colVehiculo.setText(resources.getString("GestionarAlquiler.colVehiculo"));
-		colAlquiler.setText(resources.getString("GestionarAlquiler.colAlquiler"));
-		btnEliminar.setText(resources.getString("GestionarAlquiler.btnEliminar"));
-		btnAlquilar.setText(resources.getString("GestionarAlquiler.btnAlquilar"));
-
+		
+		actualizarTabla();
+		
 		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
 				actualizarTabla(Long.getLong(newValue));
@@ -92,7 +80,18 @@ public class GestionarAlquilerController {
 			}
 			actualizarTabla(Long.getLong(newValue));
 		});
-
+		
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitle.setText(bundle.getString("GestionarAlquiler.lblTitle"));
+			txtBuscar.setPromptText(bundle.getString("GestionarAlquiler.txtBuscar"));
+			colId.setText(bundle.getString("GestionarAlquiler.colId"));
+			colFAlquiler.setText(bundle.getString("GestionarAlquiler.colFAlquiler"));
+			colCliente.setText(bundle.getString("GestionarAlquiler.colCliente"));
+			colVehiculo.setText(bundle.getString("GestionarAlquiler.colVehiculo"));
+			colFRegreso.setText(bundle.getString("GestionarAlquiler.colFRegreso"));
+			btnEliminar.setText(bundle.getString("GestionarAlquiler.btnEliminar"));
+			btnAlquilar.setText(bundle.getString("GestionarAlquiler.btnAlquilar"));
+		});
 	}
 
 	@FXML
@@ -120,6 +119,7 @@ public class GestionarAlquilerController {
 
 		try {
 			empresa.EliminarAlquiler(alquilercito.getId());
+			ModelFactoryController.getInstance().guardarAlquileres();
 			new Alert(AlertType.CONFIRMATION, "El alquiler de id:" + alquilercito.getId() + "se ha elimiando con exito")
 					.show();
 		} catch (AlquilerNoExistenteException e) {
@@ -134,11 +134,21 @@ public class GestionarAlquilerController {
 		listaObservable = FXCollections.observableList(empresa.obtenerAlquileresFiltrados(id));
 		tablaAlquileres.setItems(listaObservable);
 		colId.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getId().toString()));
-		colFactura.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getId().toString()));
 		colCliente.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCliente().getCedula()));
 		colVehiculo.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getVehiculo().getPlaca()));
-		colAlquiler.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaAlquiler().toString()));
-		colRegreso.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaRegreso().toString()));
+		colFAlquiler.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaAlquiler().toString()));
+		colFRegreso.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaRegreso().toString()));
+		tablaAlquileres.refresh();
+	}
+	
+	private void actualizarTabla() {
+		listaObservable = FXCollections.observableList(empresa.obtenerListaAlquileres());
+		tablaAlquileres.setItems(listaObservable);
+		colId.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getId().toString()));
+		colCliente.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCliente().getCedula()));
+		colVehiculo.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getVehiculo().getPlaca()));
+		colFAlquiler.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaAlquiler().toString()));
+		colFRegreso.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaRegreso().toString()));
 		tablaAlquileres.refresh();
 	}
 }

@@ -10,6 +10,7 @@ import co.edu.uniquindio.alquilervehiculos.utils.FxUtility;
 import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -17,7 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ValidarClienteController {
+public class ValidarClienteController implements Initializable {
 
 	@FXML
 	private ResourceBundle resources;
@@ -42,22 +43,21 @@ public class ValidarClienteController {
 
 	@FXML
 	private TextField txtCedula;
-	
+
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-		
-		lblTitulo.setText(resources.getString("ValidarCliente.lblTitulo"));
-		lblCedula.setText(resources.getString("ValidarCliente.lblCedula"));
-		btnValidar.setText(resources.getString("ValidarCliente.btnValidar"));
-		btnValidar.setText(resources.getString("ValidarCliente.btnSiguiente"));
-		
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		FxUtility.setAsNumberTextfield(txtCedula);
-		
+
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitulo.setText(bundle.getString("ValidarCliente.lblTitulo"));
+			lblCedula.setText(bundle.getString("ValidarCliente.lblCedula"));
+			btnValidar.setText(bundle.getString("ValidarCliente.btnValidar"));
+			btnValidar.setText(bundle.getString("ValidarCliente.btnSiguiente"));
+		});
 	}
-	
+
 	@FXML
 	void backEvent(ActionEvent event) {
 		backAction();
@@ -72,9 +72,9 @@ public class ValidarClienteController {
 	void validarEvent(ActionEvent event) {
 		validarAction();
 	}
-	
-	private void validarAction(){
-		if(empresa.verificarCliente(txtCedula.getText().trim())) {
+
+	private void validarAction() {
+		if (empresa.verificarCliente(txtCedula.getText().trim())) {
 			new Alert(AlertType.CONFIRMATION, "El cliente si existe").show();
 			btnSiguiente.setVisible(true);
 			return;
@@ -90,8 +90,8 @@ public class ValidarClienteController {
 			e.printStackTrace();
 		}
 	}
-	
-	private void siguienteAction(){
+
+	private void siguienteAction() {
 		try {
 			Node nodo = App.loadFXML("registroAlquiler");
 			MenuPrincipalController.getInstance().setCenter(nodo);

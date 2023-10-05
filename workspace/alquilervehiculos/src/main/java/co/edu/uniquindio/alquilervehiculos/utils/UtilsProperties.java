@@ -2,26 +2,28 @@ package co.edu.uniquindio.alquilervehiculos.utils;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import javafx.beans.property.SimpleObjectProperty;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UtilsProperties {
+	
+	private final SimpleObjectProperty<ResourceBundle> bdProperty = new SimpleObjectProperty<>();
 
 	private static UtilsProperties instancia;
 	
 	private ResourceBundle recursos;
 
-	private static String ruta;
+	private final static String RUTA = "/META-INF/properties/textos";
+	
+	private UtilsProperties() {
+		bdProperty.setValue(ResourceBundle.getBundle(RUTA));
+	}
 
 	public static UtilsProperties getInstancia() {
 		if (instancia == null) {
 			instancia = new UtilsProperties();
 		}
-		ruta = "/META-INF/properties/textos";
-		System.out.println(ruta);
-		instancia.cambiarEspanol();
 		return instancia;
 	}
 
@@ -29,12 +31,22 @@ public class UtilsProperties {
 		return recursos;
 	}
 	
-	public void cambiarIngles() {
-		recursos = ResourceBundle.getBundle(ruta, new Locale("en"));
+	public void setLanguage(Locale locale) {
+		if (!locale.equals(bdProperty.getValue().getLocale()))
+			bdProperty.setValue(ResourceBundle.getBundle(RUTA, locale));
 	}
-	
-	public void cambiarEspanol() {
-		recursos = ResourceBundle.getBundle(ruta, new Locale("es"));
+
+	public void setLanguage(String localeString) {
+		setLanguage(new Locale.Builder().setLanguage(localeString).build());
+	}
+
+	public void addListener(Consumer<ResourceBundle> listener) {
+		listener.accept(bdProperty.getValue());
+		bdProperty.addListener((observable, oldValue, newValue) -> listener.accept(newValue));
+	}
+
+	public void setProperties(Consumer<ResourceBundle> listener) {
+		listener.accept(bdProperty.getValue());
 	}
 
 }

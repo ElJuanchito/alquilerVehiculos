@@ -24,6 +24,7 @@ import co.edu.uniquindio.alquilervehiculos.exceptions.VehiculoYaExistenteExcepti
 import co.edu.uniquindio.alquilervehiculos.exceptions.VerificarFechasException;
 import co.edu.uniquindio.alquilervehiculos.utils.UtilsLogger;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author ElJuancho
@@ -31,9 +32,13 @@ import lombok.Getter;
  */
 @Getter
 public class EmpresaAlquiler {
+	@Setter
 	private Map<String, Cliente> listaClientes;
+	@Setter
 	private Map<String, Vehiculo> listaVehiculos;
+	@Setter
 	private Map<Long, Alquiler> listaAlquileres;
+	@Setter
 	private Map<Long, Factura> listaFacturas;
 	private static final Logger LOGGER = UtilsLogger.getInstancia().obtenerLogger(EmpresaAlquiler.class);
 
@@ -81,7 +86,7 @@ public class EmpresaAlquiler {
 	 * @throws ClienteNoExistenteException
 	 */
 	private void throwClienteNoExistente(String cedula) throws ClienteNoExistenteException {
-		if (verificarCliente(cedula)) {
+		if (!verificarCliente(cedula)) {
 			LOGGER.log(Level.WARNING, "El cliente identificado con la cedula:" + cedula + "no a existe en la lista.");
 			throw new ClienteNoExistenteException(
 					"El cliente identificado con la cedula: " + cedula + ", no existe en la lista.");
@@ -207,7 +212,7 @@ public class EmpresaAlquiler {
 	 * @throws VehiculoNoExistenteException
 	 */
 	private void throwVehiculoNoExistente(String placa) throws VehiculoNoExistenteException {
-		if (verificarVehiculo(placa)) {
+		if (!verificarVehiculo(placa)) {
 			LOGGER.log(Level.WARNING, "El vehiculo identificado con la placa:" + placa + " no existe en la lista.");
 			throw new VehiculoNoExistenteException("El vehiculo con la placa: " + placa + " no existe en la lista.");
 		}
@@ -300,9 +305,9 @@ public class EmpresaAlquiler {
 				|| vehiculo.getPrecio() == null || vehiculo.getEsAutomatico() == null
 				|| vehiculo.getNSillas() == null) {
 			LOGGER.log(Level.WARNING, "Se estan ingresando parametros nulos para la creacion del objeto Vehiculo");
+			throw new VehiculoConParametrosNullException(
+					"Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");
 		}
-		throw new VehiculoConParametrosNullException(
-				"Se estan introduciendo parametros nulos en la creacion del objeto Vehiculo");
 	}
 
 	/**
@@ -625,18 +630,18 @@ public class EmpresaAlquiler {
 	}
 
 	public List<Cliente> obtenerClientesFiltrados(String cedula) {
-		return listaClientes.values().stream().filter(c -> c.getCedula().equals(cedula)).collect(Collectors.toList());
+		return listaClientes.values().stream().filter(c -> c.getCedula().startsWith(cedula)).collect(Collectors.toList());
 	}
 
 	public List<Vehiculo> obtenerVehiculosFiltrados(String placa) {
-		return listaVehiculos.values().stream().filter(c -> c.getPlaca().equals(placa)).collect(Collectors.toList());
+		return listaVehiculos.values().stream().filter(c -> c.getPlaca().startsWith(placa)).collect(Collectors.toList());
 	}
 
 	public List<Alquiler> obtenerAlquileresFiltrados(Long id) {
-		return listaAlquileres.values().stream().filter(c -> c.getId().equals(id)).collect(Collectors.toList());
+		return listaAlquileres.values().stream().filter(c -> c.empiezaPor(id)).collect(Collectors.toList());
 	}
 
 	public List<Factura> obtenerFacturasFiltradas(Long id) {
-		return listaFacturas.values().stream().filter(c -> c.getId().equals(id)).collect(Collectors.toList());
+		return listaFacturas.values().stream().filter(c -> c.empiezaPor(id)).collect(Collectors.toList());
 	}
 }

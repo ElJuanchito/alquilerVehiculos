@@ -16,6 +16,7 @@ import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -28,7 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 
-public class RegistroVehiculoController {
+public class RegistroVehiculoController implements Initializable{
 
 	@FXML
 	private ResourceBundle resources;
@@ -88,7 +89,7 @@ public class RegistroVehiculoController {
 	private TextField txtKilometraje;
 
 	@FXML
-	private ComboBox<String> cbMarca;
+	private ComboBox<Marca> cbMarca;
 
 	@FXML
 	private TextField txtModelo;
@@ -106,9 +107,8 @@ public class RegistroVehiculoController {
 	
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		
 		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99, 1);
 		spinSillas.setValueFactory(valueFactory);
@@ -117,22 +117,25 @@ public class RegistroVehiculoController {
 		FxUtility.setAsNumberTextfield(txtKilometraje);
 		FxUtility.setAsNumberTextfield(txtPrecio);
 		
-		lblTitulo.setText(resources.getString("RegistroVehiculo.lblTitulo"));
-		lblPlaca.setText(resources.getString("RegistroVehiculo.lblPlaca"));
-		lblNombre.setText(resources.getString("RegistroVehiculo.lblNombre"));
-		lblMarca.setText(resources.getString("RegistroVehiculo.lblMarca"));
-		cbMarca.setPromptText(resources.getString("RegistroVehiculo.cbMarca"));
-		lblModelo.setText(resources.getString("RegistroVehiculo.lblModelo"));
-		lblFoto.setText(resources.getString("RegistroVehiculo.lblFoto"));
-		btnImagen.setText(resources.getString("RegistroVehiculo.btnImagen"));
-		lblKilometraje.setText(resources.getString("RegistroVehiculo.lblKilometraje"));
-		lblPrecio.setText(resources.getString("RegistroVehiculo.lblPrecio"));
-		lblTransmision.setText(resources.getString("RegistroVehiculo.lblTransmision"));
-		lblAutomatico.setText(resources.getString("RegistroVehiculo.lblAutomatico"));
-		lblSillas.setText(resources.getString("RegistroVehiculo.lblSillas"));
-		btnRegistrar.setText(resources.getString("RegistroVehiculo.btnRegistrar"));
 		
-		cbMarca.setItems(FXCollections.observableArrayList(Marca.obtenerTextos()));
+		cbMarca.setItems(FXCollections.observableArrayList(Marca.values()));
+		
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitulo.setText(bundle.getString("RegistroVehiculo.lblTitulo"));
+			lblPlaca.setText(bundle.getString("RegistroVehiculo.lblPlaca"));
+			lblNombre.setText(bundle.getString("RegistroVehiculo.lblNombre"));
+			lblMarca.setText(bundle.getString("RegistroVehiculo.lblMarca"));
+			cbMarca.setPromptText(bundle.getString("RegistroVehiculo.cbMarca"));
+			lblModelo.setText(bundle.getString("RegistroVehiculo.lblModelo"));
+			lblFoto.setText(bundle.getString("RegistroVehiculo.lblFoto"));
+			btnImagen.setText(bundle.getString("RegistroVehiculo.btnImagen"));
+			lblKilometraje.setText(bundle.getString("RegistroVehiculo.lblKilometraje"));
+			lblPrecio.setText(bundle.getString("RegistroVehiculo.lblPrecio"));
+			lblTransmision.setText(bundle.getString("RegistroVehiculo.lblTransmision"));
+			lblAutomatico.setText(bundle.getString("RegistroVehiculo.lblAutomatico"));
+			lblSillas.setText(bundle.getString("RegistroVehiculo.lblSillas"));
+			btnRegistrar.setText(bundle.getString("RegistroVehiculo.btnRegistrar"));
+		});
 	}
 
 	@FXML
@@ -145,7 +148,7 @@ public class RegistroVehiculoController {
 		Vehiculo vehiculo = Vehiculo.builder()
 				.placa(txtPlaca.getText().trim())
 				.nombre(txtNombre.getText().trim())
-				.marca(Marca.valueOf(cbMarca.getValue()))
+				.marca(cbMarca.getValue())
 				.modelo(txtModelo.getText().trim())
 				.foto(ruta)
 				.kilometraje(Double.valueOf(txtKilometraje.getText().trim()))
@@ -156,6 +159,7 @@ public class RegistroVehiculoController {
 		
 		try {
 			empresa.agregarVehiculo(vehiculo);
+			ModelFactoryController.getInstance().guardarVehiculos();
 			new Alert(AlertType.CONFIRMATION, "vehiculo registrado con exito").show();
 		} catch (VehiculoYaExistenteException e) {
 			new Alert(AlertType.ERROR, e.getMessage()).show();
