@@ -10,13 +10,14 @@ import co.edu.uniquindio.alquilervehiculos.model.Marca;
 import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class MasFuncionesController {
+public class MasFuncionesController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
@@ -44,17 +45,17 @@ public class MasFuncionesController {
     
     private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
     
-    @FXML
-    void initialize() {
-    	resources = UtilsProperties.getInstancia().obtenerRecursos();
-    	
-    	lblTitle.setText(resources.getString("MasFunciones.lblTitle"));
-    	btnMarcaMasAlquilada.setText(resources.getString("MasFunciones.btnMarcaMasAlquilada"));
-    	btnAlquiladosEnUnaFecha.setText(resources.getString("MasFunciones.btnAlquiladosEnUnaFecha"));
-    	btnTotalGanadoEnFechas.setText(resources.getString("MasFunciones.btnTotalGanadoEnFechas"));
-    	btnVehiculosDisponiblesEnFechas.setText(resources.getString("MasFunciones.btnVehiculosDisponiblesEnFechas"));
-    	btnIdioma.setText(resources.getString("MasFunciones.btnIdioma"));
-    }
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+    	UtilsProperties.getInstancia().addListener(bundle -> {
+    		lblTitle.setText(bundle.getString("MasFunciones.lblTitle"));
+        	btnMarcaMasAlquilada.setText(bundle.getString("MasFunciones.btnMarcaMasAlquilada"));
+        	btnAlquiladosEnUnaFecha.setText(bundle.getString("MasFunciones.btnAlquiladosEnUnaFecha"));
+        	btnTotalGanadoEnFechas.setText(bundle.getString("MasFunciones.btnTotalGanadoEnFechas"));
+        	btnVehiculosDisponiblesEnFechas.setText(bundle.getString("MasFunciones.btnVehiculosDisponiblesEnFechas"));
+        	btnIdioma.setText(bundle.getString("MasFunciones.btnIdioma"));
+		});
+	}
     
     @FXML
     void cambiarIdiomaEvent(ActionEvent event) {
@@ -78,9 +79,16 @@ public class MasFuncionesController {
 
     @FXML
     void marcaMasAlquiladaEvent(ActionEvent event) {
-    	Marca marca = empresa.obtenerMarcaMasAlquilada();
-    	new Alert(AlertType.CONFIRMATION, "La marca mas alquilada es" + marca.toString()).show();
+    	marcaMasAlquiladaAction();
     }
+
+	private void marcaMasAlquiladaAction() {
+		Marca marca = empresa.obtenerMarcaMasAlquilada();
+		if(marca != null) {
+			new Alert(AlertType.CONFIRMATION, "La marca mas alquilada es" + marca.toString()).show();
+		}
+    	new Alert(AlertType.WARNING, "No existe ningun registro de alquiler").show();
+	}
 
     @FXML
     void totalGanadoEnFechasEvent(ActionEvent event) {

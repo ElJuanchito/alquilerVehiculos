@@ -13,6 +13,7 @@ import co.edu.uniquindio.alquilervehiculos.utils.FxUtility;
 import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class RegistroClienteController {
+public class RegistroClienteController implements Initializable{
 
 	@FXML
 	private ResourceBundle resources;
@@ -75,23 +76,24 @@ public class RegistroClienteController {
 
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-
-		lblTitulo.setText(resources.getString("RegistroCliente.lblTitulo"));
-		lblCedula.setText(resources.getString("RegistroCliente.lblCedula"));
-		lblNombre.setText(resources.getString("RegistroCliente.lblNombre"));
-		lblTelefono.setText(resources.getString("RegistroCliente.lblTelefono"));
-		lblEmail.setText(resources.getString("RegistroCliente.lblEmail"));
-		lblCiudad.setText(resources.getString("RegistroCliente.lblCiudad"));
-		lblDireccion.setText(resources.getString("RegistroCliente.lblDireccion"));
-		btnRegistrar.setText(resources.getString("RegistroCliente.btnRegistrar"));
-
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
 		FxUtility.setAsNumberTextfield(txtCedula);
 		FxUtility.setAsNameTextField(txtNombre);
 		FxUtility.setAsNumberTextfield(txtTelefono);
 		FxUtility.setAsNameTextField(txtCiudad);
+		
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitulo.setText(bundle.getString("RegistroCliente.lblTitulo"));
+			lblCedula.setText(bundle.getString("RegistroCliente.lblCedula"));
+			lblNombre.setText(bundle.getString("RegistroCliente.lblNombre"));
+			lblTelefono.setText(bundle.getString("RegistroCliente.lblTelefono"));
+			lblEmail.setText(bundle.getString("RegistroCliente.lblEmail"));
+			lblCiudad.setText(bundle.getString("RegistroCliente.lblCiudad"));
+			lblDireccion.setText(bundle.getString("RegistroCliente.lblDireccion"));
+			btnRegistrar.setText(bundle.getString("RegistroCliente.btnRegistrar"));
+		});
 	}
 
 	@FXML
@@ -125,6 +127,7 @@ public class RegistroClienteController {
 				.build();
 		try {
 			empresa.agregarCliente(cliente);
+			ModelFactoryController.getInstance().guardarClientes();
 			new Alert(AlertType.CONFIRMATION, "Cliente agregado con exito").show();
 			backAction();
 		} catch (ClienteYaExistenteException e) {

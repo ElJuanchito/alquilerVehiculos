@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -23,7 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class GestionarVehiculoController {
+public class GestionarVehiculoController implements Initializable {
 
 	@FXML
 	private ResourceBundle resources;
@@ -69,28 +70,16 @@ public class GestionarVehiculoController {
 
 	@FXML
 	private Button btnRegistrar;
-	
+
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
 	private ObservableList<Vehiculo> listaObservable;
 
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 
-		lblTitle.setText(resources.getString("GestionarVehiculo.lblTitle"));
-		txtBuscar.setPromptText(resources.getString("GestionarVehiculo.txtBuscar"));
-		colPlaca.setText(resources.getString("GestionarVehiculo.colPlaca"));
-		colNombre.setText(resources.getString("GestionarVehiculo.colNombre"));
-		colMarca.setText(resources.getString("GestionarVehiculo.colMarca"));
-		colModelo.setText(resources.getString("GestionarVehiculo.colModelo"));
-		colKilometraje.setText(resources.getString("GestionarVehiculo.colKilometraje"));
-		colPrecio.setText(resources.getString("GestionarVehiculo.colPrecio"));
-		colAutomatico.setText(resources.getString("GestionarVehiculo.colAutomatico"));
-		colSillas.setText(resources.getString("GestionarVehiculo.colSillas"));
-		btnEliminar.setText(resources.getString("GestionarVehiculo.btnEliminar"));
-		btnRegistrar.setText(resources.getString("GestionarVehiculo.btnRegistrar"));
-
+		actualizarTabla("");
+		
 		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
 				actualizarTabla(newValue);
@@ -99,22 +88,37 @@ public class GestionarVehiculoController {
 			actualizarTabla(newValue);
 		});
 
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitle.setText(bundle.getString("GestionarVehiculo.lblTitle"));
+			txtBuscar.setPromptText(bundle.getString("GestionarVehiculo.txtBuscar"));
+			colPlaca.setText(bundle.getString("GestionarVehiculo.colPlaca"));
+			colNombre.setText(bundle.getString("GestionarVehiculo.colNombre"));
+			colMarca.setText(bundle.getString("GestionarVehiculo.colMarca"));
+			colModelo.setText(bundle.getString("GestionarVehiculo.colModelo"));
+			colKilometraje.setText(bundle.getString("GestionarVehiculo.colKilometraje"));
+			colPrecio.setText(bundle.getString("GestionarVehiculo.colPrecio"));
+			colAutomatico.setText(bundle.getString("GestionarVehiculo.colAutomatico"));
+			colSillas.setText(bundle.getString("GestionarVehiculo.colSillas"));
+			btnEliminar.setText(bundle.getString("GestionarVehiculo.btnEliminar"));
+			btnRegistrar.setText(bundle.getString("GestionarVehiculo.btnRegistrar"));
+		});
 	}
 
 	@FXML
 	void eliminarEvent(ActionEvent event) {
 		eliminarAction();
 	}
-	
+
 	private void eliminarAction() {
 		Vehiculo vehiculito = tableVehiculos.getSelectionModel().getSelectedItem();
 		if (vehiculito == null) {
 			new Alert(AlertType.INFORMATION, "Debe seleccionar un vehiculo en la tabla para eliminarlo").show();
 			return;
 		}
-		
+
 		try {
 			empresa.eliminarVehiculo(vehiculito.getPlaca());
+			ModelFactoryController.getInstance().guardarVehiculos();
 			new Alert(AlertType.CONFIRMATION,
 					"El vehiculo de placa:" + vehiculito.getPlaca() + "se ha elimiando con exito").show();
 		} catch (VehiculoNoExistenteException e) {
@@ -122,7 +126,7 @@ public class GestionarVehiculoController {
 		} finally {
 			txtBuscar.setText("");
 		}
-		
+
 	}
 
 	@FXML

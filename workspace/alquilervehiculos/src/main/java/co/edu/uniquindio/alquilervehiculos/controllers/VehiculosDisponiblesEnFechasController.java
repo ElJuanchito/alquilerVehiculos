@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -20,7 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class VehiculosDisponiblesEnFechasController {
+public class VehiculosDisponiblesEnFechasController implements Initializable{
 
     @FXML
     private ResourceBundle resources;
@@ -76,25 +77,24 @@ public class VehiculosDisponiblesEnFechasController {
     private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
 	private ObservableList<Vehiculo> listaObservable;
-    
-    @FXML
-    void initialize() {
-    	resources = UtilsProperties.getInstancia().obtenerRecursos();
-    	
-    	lblTitle.setText(resources.getString("VehiculosDiponiblesEnFechas.lblTitle"));
-    	lblFechaInicial.setText(resources.getString("VehiculosDiponiblesEnFechas.lblFechaInicial"));
-    	lblFechaFinal.setText(resources.getString("VehiculosDiponiblesEnFechas.lblFechaFinal"));
-    	btnBuscar.setText(resources.getString("VehiculosDiponiblesEnFechas.btnBuscar"));
-    	colPlaca.setText(resources.getString("VehiculosDiponiblesEnFechas.colPlaca"));
-		colNombre.setText(resources.getString("VehiculosDiponiblesEnFechas.colNombre"));
-		colMarca.setText(resources.getString("VehiculosDiponiblesEnFechas.colMarca"));
-		colModelo.setText(resources.getString("VehiculosDiponiblesEnFechas.colModelo"));
-		colKilometraje.setText(resources.getString("VehiculosDiponiblesEnFechas.colKilometraje"));
-		colPrecio.setText(resources.getString("VehiculosDiponiblesEnFechas.colPrecio"));
-		colAutomatico.setText(resources.getString("VehiculosDiponiblesEnFechas.colAutomatico"));
-		colSillas.setText(resources.getString("VehiculosDiponiblesEnFechas.colSillas"));
-    	
-    }
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitle.setText(bundle.getString("VehiculosDiponiblesEnFechas.lblTitle"));
+	    	lblFechaInicial.setText(bundle.getString("VehiculosDiponiblesEnFechas.lblFechaInicial"));
+	    	lblFechaFinal.setText(bundle.getString("VehiculosDiponiblesEnFechas.lblFechaFinal"));
+	    	btnBuscar.setText(bundle.getString("VehiculosDiponiblesEnFechas.btnBuscar"));
+	    	colPlaca.setText(bundle.getString("VehiculosDiponiblesEnFechas.colPlaca"));
+			colNombre.setText(bundle.getString("VehiculosDiponiblesEnFechas.colNombre"));
+			colMarca.setText(bundle.getString("VehiculosDiponiblesEnFechas.colMarca"));
+			colModelo.setText(bundle.getString("VehiculosDiponiblesEnFechas.colModelo"));
+			colKilometraje.setText(bundle.getString("VehiculosDiponiblesEnFechas.colKilometraje"));
+			colPrecio.setText(bundle.getString("VehiculosDiponiblesEnFechas.colPrecio"));
+			colAutomatico.setText(bundle.getString("VehiculosDiponiblesEnFechas.colAutomatico"));
+			colSillas.setText(bundle.getString("VehiculosDiponiblesEnFechas.colSillas"));
+		});
+	}
 
     @FXML
     void buscarEvent(ActionEvent event) {
@@ -110,7 +110,7 @@ public class VehiculosDisponiblesEnFechasController {
 			new Alert(AlertType.WARNING, "Ingrese una fecha final").show();
 			return;
 		}
-		if (dpInicial.getValue().isBefore(dpFinal.getValue())) {
+		if (dpFinal.getValue().isBefore(dpInicial.getValue())) {
 			new Alert(AlertType.WARNING, "La fecha final es menor a la fecha inicial").show();
 			return;
 		}

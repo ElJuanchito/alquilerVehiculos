@@ -7,13 +7,14 @@ import co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler;
 import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
-public class TotalGanadoEnFechasController {
+public class TotalGanadoEnFechasController implements Initializable{
 
 	@FXML
 	private ResourceBundle resources;
@@ -46,16 +47,16 @@ public class TotalGanadoEnFechasController {
 	private Label lblTotalGanado;
 
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
-
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-
-		lblTitle.setText(resources.getString("TotalGanadoEnFechas.lblTitle"));
-		lblFechaInicial.setText(resources.getString("TotalGanadoEnFechas.lblFechaInicial"));
-		lblFechaFinal.setText(resources.getString("TotalGanadoEnFechas.lblFechaFinal"));
-		lblTotalGanado.setText(resources.getString("TotalGanadoEnFechas.lblTotalGanado"));
-		btnCalcular.setText(resources.getString("TotalGanadoEnFechas.btnCalcular"));
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitle.setText(bundle.getString("TotalGanadoEnFechas.lblTitle"));
+			lblFechaInicial.setText(bundle.getString("TotalGanadoEnFechas.lblFechaInicial"));
+			lblFechaFinal.setText(bundle.getString("TotalGanadoEnFechas.lblFechaFinal"));
+			lblTotalGanado.setText(bundle.getString("TotalGanadoEnFechas.lblTotalGanado"));
+			btnCalcular.setText(bundle.getString("TotalGanadoEnFechas.btnCalcular"));
+		});
 	}
 
 	@FXML

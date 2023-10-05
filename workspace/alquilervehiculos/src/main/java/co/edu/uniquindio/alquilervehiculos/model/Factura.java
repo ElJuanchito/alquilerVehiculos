@@ -35,4 +35,8 @@ public class Factura {
 		this.costo = costo;
 	}
 	
+	public boolean empiezaPor(Long id) {
+		return getId().toString().startsWith(id.toString());
+	}
+	
 }

@@ -2,14 +2,16 @@ package co.edu.uniquindio.alquilervehiculos.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import co.edu.uniquindio.alquilervehiculos.utils.UtilsProperties;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class CambiarIdiomaController {
+public class CambiarIdiomaController implements Initializable, Consumer<ResourceBundle>{
 
 	@FXML
 	private ResourceBundle resources;
@@ -25,15 +27,17 @@ public class CambiarIdiomaController {
 
 	@FXML
 	private Label lblTitulo;
-
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-		
-		lblTitulo.setText(resources.getString("CambiarIdioma.lblTitulo"));
-		btnEspanol.setText(resources.getString("CambiarIdioma.btnEspanol"));
-		btnIngles.setText(resources.getString("CambiarIdioma.btnIngles"));
-
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		UtilsProperties.getInstancia().addListener(this);
+	}
+	
+	@Override
+	public void accept(ResourceBundle t) {
+		lblTitulo.setText(t.getString("CambiarIdioma.lblTitulo"));
+		btnEspanol.setText(t.getString("CambiarIdioma.btnEspanol"));
+		btnIngles.setText(t.getString("CambiarIdioma.btnIngles"));
 	}
 
 	@FXML
@@ -47,11 +51,11 @@ public class CambiarIdiomaController {
 	}
 	
 	private void espanolAction() {
-		UtilsProperties.getInstancia().cambiarEspanol();
+		UtilsProperties.getInstancia().setLanguage("es");
 	}
 
 	private void inglesAction() {
-		UtilsProperties.getInstancia().cambiarIngles();
+		UtilsProperties.getInstancia().setLanguage("en");
 	}
 
 }

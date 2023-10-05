@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -24,7 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class GestionarClienteController {
+public class GestionarClienteController implements Initializable{
 
 	@FXML
 	private ResourceBundle resources;
@@ -69,29 +70,30 @@ public class GestionarClienteController {
 
 	private ObservableList<Cliente> listaObservable;
 
-	@FXML
-	void initialize() {
-		resources = UtilsProperties.getInstancia().obtenerRecursos();
-
-		lblTitle.setText(resources.getString("GestionarCliente.lblTitle"));
-		txtBuscar.setPromptText(resources.getString("GestionarCliente.txtBuscar"));
-		colCedula.setText(resources.getString("GestionarCliente.colCedula"));
-		colNombre.setText(resources.getString("GestionarCliente.colNombre"));
-		colTelefono.setText(resources.getString("GestionarCliente.colTelefono"));
-		colEmail.setText(resources.getString("GestionarCliente.colEmail"));
-		colCiudad.setText(resources.getString("GestionarCliente.colCiudad"));
-		colDireccion.setText(resources.getString("GestionarCliente.colDireccion"));
-		btnEliminar.setText(resources.getString("GestionarCliente.btnEliminar"));
-		btnRegistrar.setText(resources.getString("GestionarCliente.btnRegistrar"));
-
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		actualizarTabla("");
 		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
-				actualizarTabla(newValue);
+				actualizarTabla("");
 				return;
 			}
 			actualizarTabla(newValue);
 		});
 		FxUtility.setAsNumberTextfield(txtBuscar);
+		
+		UtilsProperties.getInstancia().addListener(bundle -> {
+			lblTitle.setText(bundle.getString("GestionarCliente.lblTitle"));
+			txtBuscar.setPromptText(bundle.getString("GestionarCliente.txtBuscar"));
+			colCedula.setText(bundle.getString("GestionarCliente.colCedula"));
+			colNombre.setText(bundle.getString("GestionarCliente.colNombre"));
+			colTelefono.setText(bundle.getString("GestionarCliente.colTelefono"));
+			colEmail.setText(bundle.getString("GestionarCliente.colEmail"));
+			colCiudad.setText(bundle.getString("GestionarCliente.colCiudad"));
+			colDireccion.setText(bundle.getString("GestionarCliente.colDireccion"));
+			btnEliminar.setText(bundle.getString("GestionarCliente.btnEliminar"));
+			btnRegistrar.setText(bundle.getString("GestionarCliente.btnRegistrar"));
+		});
 	}
 
 	@FXML
@@ -108,6 +110,7 @@ public class GestionarClienteController {
 
 		try {
 			empresa.eliminarCliente(clientecito.getCedula());
+			ModelFactoryController.getInstance().guardarClientes();
 			new Alert(AlertType.CONFIRMATION,
 					"El cliente de cedula:" + clientecito.getCedula() + "se ha elimiando con exito").show();
 		} catch (ClienteNoExistenteException e) {
