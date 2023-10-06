@@ -34,12 +34,13 @@ public class ModelFactoryController {
 		return empresa;
 	}
 	
-	public void inicializarDatos() {
-		guardarClientes();
-		guardarVehiculos();
-		guardarAlquileres();
-		guardarFacturas();
-	}
+	
+//	public void inicializarDatos() {
+//		guardarClientes();
+//		guardarVehiculos();
+//		guardarAlquileres();
+//		guardarFacturas();
+//	}
 	
 	public void leerDatos() {
 		leerClientes();
