@@ -159,6 +159,7 @@ public class RegistroAlquilerController implements Initializable {
 		try {
 			empresa.agregarAlquiler(alquiler);
 			ModelFactoryController.getInstance().guardarAlquileres();
+			ModelFactoryController.getInstance().guardarFacturas();
 			new Alert(AlertType.CONFIRMATION, "El alquiler se creo con exito").show();
 			backAction();
 		} catch (AlquilerYaExistenteException | AlquilerConParametrosNullException | VehiculoYaAlquiladoException

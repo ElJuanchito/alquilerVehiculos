@@ -453,9 +453,10 @@ public class EmpresaAlquiler {
 		throwAlquilerConParametrosNull(alquiler);
 		throwVehiculoYaAlquilado(alquiler.getVehiculo().getPlaca(), alquiler.getFechaAlquiler(),
 				alquiler.getFechaRegreso());
-		alquiler.generarFactura();
-		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
-		System.out.println(listaFacturas);
+		Factura factura = alquiler.generarFactura();
+		System.out.println(factura);
+		listaFacturas.put(factura.getId(), factura);
+		System.out.println(listaFacturas.get(factura.getId()));
 		LOGGER.log(Level.INFO, "Se agrego el: " + alquiler.toString() + "a la lista de alquileres");
 		return listaAlquileres.put(alquiler.getId(), alquiler);
 	}
@@ -648,7 +649,7 @@ public class EmpresaAlquiler {
 
 	public List<Factura> obtenerFacturasFiltradas(Long id) {
 		return listaFacturas.values().stream()
-                .filter(numero -> numero.getId()!=null).filter(numero -> numero.getId().equals(id))
+                .filter(numero -> numero.getId()!=null && numero.getId().equals(id))
                 .collect(Collectors.toList());
 	}
 }

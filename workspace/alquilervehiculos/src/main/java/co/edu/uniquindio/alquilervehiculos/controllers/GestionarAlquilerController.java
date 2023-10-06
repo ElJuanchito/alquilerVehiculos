@@ -131,6 +131,7 @@ public class GestionarAlquilerController implements Initializable {
 			ModelFactoryController.getInstance().guardarAlquileres();
 			new Alert(AlertType.CONFIRMATION, "El alquiler de id:" + alquilercito.getId() + "se ha elimiando con exito")
 					.show();
+			actualizarTabla();
 		} catch (AlquilerNoExistenteException e) {
 			new Alert(AlertType.ERROR, e.getMessage()).show();
 		} finally {
