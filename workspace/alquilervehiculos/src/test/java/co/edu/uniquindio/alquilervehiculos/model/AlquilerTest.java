@@ -1,9 +1,5 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
-import java.time.LocalDateTime;
-
-import org.junit.Test;
-
 public class AlquilerTest {
 
 	public AlquilerTest() {
