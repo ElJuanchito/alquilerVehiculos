@@ -128,6 +128,10 @@ public class RegistroAlquilerController implements Initializable {
 		});
 		
 		FxUtility.setAsNumberTextfield(txtCedula);
+		
+		tableVehiculos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue != null) lblPlacaResultado.setText(newValue.getPlaca());
+		});
 
 		actualizarTabla();
 	}

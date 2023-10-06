@@ -32,7 +32,7 @@ public class GestionarFacturaController implements Initializable {
 	private TextField txtBuscar;
 
 	@FXML
-	private TableView<Factura> tablaAlquileres;
+	private TableView<Factura> tablaFacturas;
 
 	@FXML
 	private TableColumn<Factura, String> colId;
@@ -60,7 +60,7 @@ public class GestionarFacturaController implements Initializable {
 
 		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
-				actualizarTabla(Long.getLong(newValue));
+				actualizarTabla();
 				return;
 			}
 			actualizarTabla(Long.getLong(newValue));
@@ -79,12 +79,23 @@ public class GestionarFacturaController implements Initializable {
 
 	private void actualizarTabla(Long id) {
 		listaObservable = FXCollections.observableList(empresa.obtenerFacturasFiltradas(id));
-		tablaAlquileres.setItems(listaObservable);
+		tablaFacturas.setItems(listaObservable);
 		colId.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getId().toString()));
 		colFecha.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFecha().toString()));
 		colCliente.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCliente().getCedula()));
 		colVehiculo.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getVehiculo().getPlaca()));
 		colCosto.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCosto().toString()));
-		tablaAlquileres.refresh();
+		tablaFacturas.refresh();
+	}
+	
+	private void actualizarTabla() {
+		listaObservable = FXCollections.observableList(empresa.obtenerListaFacturas());
+		tablaFacturas.setItems(listaObservable);
+		colId.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getId().toString()));
+		colFecha.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFecha().toString()));
+		colCliente.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCliente().getCedula()));
+		colVehiculo.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getVehiculo().getPlaca()));
+		colCosto.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getCosto().toString()));
+		tablaFacturas.refresh();
 	}
 }

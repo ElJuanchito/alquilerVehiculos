@@ -1,5 +1,6 @@
 package co.edu.uniquindio.alquilervehiculos.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import lombok.Builder;
@@ -13,7 +14,11 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Factura {
+public class Factura implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@EqualsAndHashCode.Include
 	private Long id;
 	@Setter
@@ -33,10 +38,6 @@ public class Factura {
 		this.vehiculo = vehiculo;
 		this.cliente = cliente;
 		this.costo = costo;
-	}
-	
-	public boolean empiezaPor(Long id) {
-		return getId().toString().startsWith(id.toString());
 	}
 	
 }

@@ -65,3 +65,57 @@ oct. 04, 2023 5:40:32 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAl
 INFO: Se agrego el: Alquiler(id=0, factura=Factura(id=0, fecha=2023-10-11, vehiculo=co.edu.uniquindio.alquilervehiculos.model.Vehiculo@c1ed, cliente=co.edu.uniquindio.alquilervehiculos.model.Cliente@6c, costo=1400000.0), cliente=co.edu.uniquindio.alquilervehiculos.model.Cliente@6c, vehiculo=co.edu.uniquindio.alquilervehiculos.model.Vehiculo@c1ed, fechaAlquiler=2023-10-11, fechaRegreso=2023-10-18)a la lista de alquileres
 oct. 05, 2023 12:27:23 A. M. javafx.fxml.FXMLLoader$ValueElement processValue
 WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 05, 2023 2:13:56 P. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 05, 2023 2:15:56 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteCliente(cedula=1004917600, nombre=Harby Steven Aponte, telefono=3203771818, email=harbyesteven.apt@gmail.com, ciudad=Armenia, direccion=Genesis)Ha sido agregado a la lista
+oct. 05, 2023 2:16:09 P. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 05, 2023 2:17:59 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteCliente(cedula=1092851416, nombre=Juan Manuel Amador, telefono=3136253916, email=arroa03@gmail.com, ciudad=Calarca, direccion=Antonia Santos)Ha sido agregado a la lista
+oct. 05, 2023 2:19:36 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler throwVerificarDatosVehiculo
+WARNING: Se estan ingresando parametros nulos para la creacion del objeto Vehiculo
+oct. 05, 2023 2:20:41 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler throwVerificarDatosVehiculo
+WARNING: Se estan ingresando parametros nulos para la creacion del objeto Vehiculo
+oct. 05, 2023 2:22:11 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarVehiculo
+INFO: El vehiculo co.edu.uniquindio.alquilervehiculos.model.Vehiculo@9703a519 ha sido agregado a la lista.
+oct. 05, 2023 2:22:44 P. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 05, 2023 2:23:31 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 0
+oct. 05, 2023 2:23:31 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarAlquiler
+INFO: Se agrego el: Alquiler(id=0, factura=Factura(id=0, fecha=2023-10-05, vehiculo=co.edu.uniquindio.alquilervehiculos.model.Vehiculo@9703a519, cliente=Cliente(cedula=1004917600, nombre=Harby Steven Aponte, telefono=3203771818, email=harbyesteven.apt@gmail.com, ciudad=Armenia, direccion=Genesis), costo=1.2E8), cliente=Cliente(cedula=1004917600, nombre=Harby Steven Aponte, telefono=3203771818, email=harbyesteven.apt@gmail.com, ciudad=Armenia, direccion=Genesis), vehiculo=co.edu.uniquindio.alquilervehiculos.model.Vehiculo@9703a519, fechaAlquiler=2023-10-05, fechaRegreso=2023-10-07)a la lista de alquileres
+oct. 05, 2023 2:29:04 P. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 05, 2023 2:30:15 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteCliente(cedula=1004917064, nombre=Juan Manuel Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=El Modelo)Ha sido agregado a la lista
+oct. 05, 2023 6:50:04 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarVehiculo
+INFO: El vehiculo co.edu.uniquindio.alquilervehiculos.model.Vehiculo@83c650fd ha sido agregado a la lista.
+oct. 05, 2023 6:51:18 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 0
+oct. 05, 2023 6:51:18 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarAlquiler
+INFO: Se agrego el: Alquiler(id=0, factura=Factura(id=0, fecha=2023-10-19, vehiculo=co.edu.uniquindio.alquilervehiculos.model.Vehiculo@83c650fd, cliente=Cliente(cedula=1004917064, nombre=Juan Manuel Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=El Modelo), costo=281088.0), cliente=Cliente(cedula=1004917064, nombre=Juan Manuel Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=El Modelo), vehiculo=co.edu.uniquindio.alquilervehiculos.model.Vehiculo@83c650fd, fechaAlquiler=2023-10-19, fechaRegreso=2023-10-31)a la lista de alquileres
+oct. 05, 2023 7:27:55 P. M. javafx.fxml.FXMLLoader$ValueElement processValue
+WARNING: Loading FXML document with JavaFX API of version 20.0.1 by JavaFX runtime of version 19
+oct. 05, 2023 7:28:19 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteCliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa)Ha sido agregado a la lista
+oct. 05, 2023 7:29:04 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarVehiculo
+INFO: El vehiculo Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2) ha sido agregado a la lista.
+oct. 05, 2023 7:30:04 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 0
+oct. 05, 2023 7:32:55 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 0
+oct. 05, 2023 7:32:55 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarAlquiler
+INFO: Se agrego el: Alquiler(id=0, factura=Factura(id=0, fecha=2023-10-11, vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), costo=14000.0), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), fechaAlquiler=2023-10-11, fechaRegreso=2023-10-18)a la lista de alquileres
+oct. 05, 2023 7:34:51 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 1
+oct. 05, 2023 7:34:51 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarAlquiler
+INFO: Se agrego el: Alquiler(id=1, factura=Factura(id=1, fecha=2023-11-08, vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), costo=14000.0), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), fechaAlquiler=2023-11-08, fechaRegreso=2023-11-15)a la lista de alquileres
+oct. 05, 2023 7:39:06 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 2
+oct. 05, 2023 7:39:06 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarAlquiler
+INFO: Se agrego el: Alquiler(id=2, factura=Factura(id=2, fecha=2023-12-12, vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), costo=28000.0), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), fechaAlquiler=2023-12-12, fechaRegreso=2023-12-26)a la lista de alquileres
+oct. 05, 2023 7:46:05 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler crearCodigoLibreAlquiler
+INFO: El numero de alquiler aumento a: 3
+oct. 05, 2023 7:46:05 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarAlquiler
+INFO: Se agrego el: Alquiler(id=3, factura=Factura(id=3, fecha=2026-10-14, vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), costo=758000.0), cliente=Cliente(cedula=1004917064, nombre=Juan Perdomo, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=Mi Casa), vehiculo=Vehiculo(placa=TTB87F, nombre=NKD125, marca=MERCEDES_BENZ, modelo=2023, foto=C:\Users\juanp\Downloads\cosa carro.png, kilometraje=2600.0, precio=2000.0, esAutomatico=false, nSillas=2), fechaAlquiler=2026-10-14, fechaRegreso=2027-10-28)a la lista de alquileres

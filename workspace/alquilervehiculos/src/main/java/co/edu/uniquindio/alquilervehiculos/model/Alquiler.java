@@ -55,8 +55,9 @@ public class Alquiler implements Serializable {
 		return ai.get();
 	}
 	public Factura generarFactura() {
-		this.factura = Factura.builder().id(id).fecha(fechaAlquiler).vehiculo(vehiculo).cliente(cliente)
+		factura = Factura.builder().id(getId()).fecha(getFechaAlquiler()).vehiculo(getVehiculo()).cliente(getCliente())
 				.costo(calcularPrecio()).build();
+		setFactura(factura);
 		return factura;
 	}
 	
