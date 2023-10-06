@@ -455,6 +455,7 @@ public class EmpresaAlquiler {
 				alquiler.getFechaRegreso());
 		alquiler.generarFactura();
 		listaFacturas.put(alquiler.getFactura().getId(), alquiler.getFactura());
+		System.out.println(listaFacturas);
 		LOGGER.log(Level.INFO, "Se agrego el: " + alquiler.toString() + "a la lista de alquileres");
 		return listaAlquileres.put(alquiler.getId(), alquiler);
 	}
@@ -630,18 +631,24 @@ public class EmpresaAlquiler {
 	}
 
 	public List<Cliente> obtenerClientesFiltrados(String cedula) {
-		return listaClientes.values().stream().filter(c -> c.getCedula().startsWith(cedula)).collect(Collectors.toList());
+		return listaClientes.values().stream().filter(c -> c.getCedula().startsWith(cedula))
+				.collect(Collectors.toList());
 	}
 
 	public List<Vehiculo> obtenerVehiculosFiltrados(String placa) {
-		return listaVehiculos.values().stream().filter(c -> c.getPlaca().startsWith(placa)).collect(Collectors.toList());
+		return listaVehiculos.values().stream().filter(c -> c.getPlaca().startsWith(placa))
+				.collect(Collectors.toList());
 	}
 
 	public List<Alquiler> obtenerAlquileresFiltrados(Long id) {
-		return listaAlquileres.values().stream().filter(c -> c.empiezaPor(id)).collect(Collectors.toList());
+		return listaAlquileres.values().stream()
+                .filter(numero -> numero.getId()!=null && numero.getId().equals(id))
+                .collect(Collectors.toList());
 	}
 
 	public List<Factura> obtenerFacturasFiltradas(Long id) {
-		return listaFacturas.values().stream().filter(c -> c.empiezaPor(id)).collect(Collectors.toList());
+		return listaFacturas.values().stream()
+                .filter(numero -> numero.getId()!=null).filter(numero -> numero.getId().equals(id))
+                .collect(Collectors.toList());
 	}
 }

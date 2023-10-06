@@ -17,7 +17,7 @@
          </children>
       </HBox>
       <TextField fx:id="txtBuscar" promptText="Buscar" styleClass="cajaTexto" stylesheets="@../styles/textfieldStyle.css" />
-      <TableView fx:id="tablaAlquileres" prefHeight="200.0" prefWidth="636.0">
+      <TableView fx:id="tablaFacturas" prefHeight="200.0" prefWidth="636.0">
         <columns>
             <TableColumn fx:id="colId" prefWidth="75.0" text="Id" />
           <TableColumn fx:id="colFecha" prefWidth="75.0" text="Fecha" />

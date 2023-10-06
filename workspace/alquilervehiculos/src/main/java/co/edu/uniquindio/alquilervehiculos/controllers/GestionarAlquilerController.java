@@ -25,65 +25,58 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class GestionarAlquilerController implements Initializable{
+public class GestionarAlquilerController implements Initializable {
 
 	@FXML
-	private ResourceBundle resources;
+	private Button btnAlquilar;
 
 	@FXML
-	private URL location;
+	private Button btnBuscar;
 
 	@FXML
-    private Button btnAlquilar;
+	private Button btnEliminar;
 
-    @FXML
-    private Button btnEliminar;
+	@FXML
+	private TableColumn<Alquiler, String> colCliente;
 
-    @FXML
-    private TableColumn<Alquiler, String> colCliente;
+	@FXML
+	private TableColumn<Alquiler, String> colFAlquiler;
 
-    @FXML
-    private TableColumn<Alquiler, String> colFAlquiler;
+	@FXML
+	private TableColumn<Alquiler, String> colFRegreso;
 
-    @FXML
-    private TableColumn<Alquiler, String> colFRegreso;
+	@FXML
+	private TableColumn<Alquiler, String> colId;
 
-    @FXML
-    private TableColumn<Alquiler, String> colId;
+	@FXML
+	private TableColumn<Alquiler, String> colVehiculo;
 
-    @FXML
-    private TableColumn<Alquiler, String> colVehiculo;
+	@FXML
+	private Label lblTitle;
 
-    @FXML
-    private Label lblTitle;
+	@FXML
+	private TableView<Alquiler> tablaAlquileres;
 
-    @FXML
-    private TableView<Alquiler> tablaAlquileres;
+	@FXML
+	private TextField txtBuscar;
 
-    @FXML
-    private TextField txtBuscar;
+	private ObservableList<Alquiler> listaObservable;
 
 	private EmpresaAlquiler empresa = ModelFactoryController.getInstance().getEmpresa();
 
-	private ObservableList<Alquiler> listaObservable;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		FxUtility.setAsNumberTextfield(txtBuscar);
 		
-		actualizarTabla();
-		
 		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
-				actualizarTabla(Long.getLong(newValue));
-				return;
+				actualizarTabla();
 			}
-			actualizarTabla(Long.getLong(newValue));
 		});
-		
+
 		UtilsProperties.getInstancia().addListener(bundle -> {
 			lblTitle.setText(bundle.getString("GestionarAlquiler.lblTitle"));
-			txtBuscar.setPromptText(bundle.getString("GestionarAlquiler.txtBuscar"));
+			btnBuscar.setText(bundle.getString("GestionarAlquiler.btnBuscar"));
 			colId.setText(bundle.getString("GestionarAlquiler.colId"));
 			colFAlquiler.setText(bundle.getString("GestionarAlquiler.colFAlquiler"));
 			colCliente.setText(bundle.getString("GestionarAlquiler.colCliente"));
@@ -92,6 +85,8 @@ public class GestionarAlquilerController implements Initializable{
 			btnEliminar.setText(bundle.getString("GestionarAlquiler.btnEliminar"));
 			btnAlquilar.setText(bundle.getString("GestionarAlquiler.btnAlquilar"));
 		});
+		
+		actualizarTabla();
 	}
 
 	@FXML
@@ -103,6 +98,20 @@ public class GestionarAlquilerController implements Initializable{
 			e.printStackTrace();
 		}
 
+	}
+
+	@FXML
+	void buscarEvent(ActionEvent event) {
+		buscarAction();
+	}
+
+	private void buscarAction() {
+		if (empresa.verificarAlquiler(Long.valueOf(txtBuscar.getText())))
+			actualizarTabla(Long.valueOf(txtBuscar.getText()));
+		else {
+			new Alert(AlertType.WARNING,"El aquiler buscado no existe").show();
+			txtBuscar.setText("");
+		}
 	}
 
 	@FXML
@@ -140,7 +149,7 @@ public class GestionarAlquilerController implements Initializable{
 		colFRegreso.setCellValueFactory(e -> new ReadOnlyStringWrapper(e.getValue().getFechaRegreso().toString()));
 		tablaAlquileres.refresh();
 	}
-	
+
 	private void actualizarTabla() {
 		listaObservable = FXCollections.observableList(empresa.obtenerListaAlquileres());
 		tablaAlquileres.setItems(listaObservable);
