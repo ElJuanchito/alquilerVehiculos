@@ -652,4 +652,8 @@ public class EmpresaAlquiler {
                 .filter(numero -> numero.getId()!=null && numero.getId().equals(id))
                 .collect(Collectors.toList());
 	}
+	
+	public boolean verificarListas() {
+		return !(listaClientes == null || listaVehiculos == null || listaAlquileres == null || listaFacturas == null);
+	}
 }

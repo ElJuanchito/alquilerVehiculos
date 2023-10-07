@@ -72,10 +72,10 @@ public class GestionarClienteController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		actualizarTabla("");
+		if(empresa.getListaClientes() != null) actualizarTabla("");
 		txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue.isEmpty()) {
-				actualizarTabla("");
+				actualizarTabla(newValue);
 				return;
 			}
 			actualizarTabla(newValue);
