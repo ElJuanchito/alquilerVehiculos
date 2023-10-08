@@ -1,7 +1,9 @@
 package co.edu.uniquindio.alquilervehiculos.controllers;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import co.edu.uniquindio.alquilervehiculos.dao.ClienteDao;
 import co.edu.uniquindio.alquilervehiculos.model.Alquiler;
 import co.edu.uniquindio.alquilervehiculos.model.Cliente;
 import co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler;
@@ -16,9 +18,12 @@ public class ModelFactoryController {
 	private EmpresaAlquiler empresa;
 
 	private UtilsPersistence serializador;
-	
+
+	private ClienteDao cDao;
+
 	private ModelFactoryController() {
 		serializador = UtilsPersistence.getInstancia();
+		cDao = new ClienteDao();
 	}
 
 	public static ModelFactoryController getInstance() {
@@ -33,15 +38,14 @@ public class ModelFactoryController {
 		}
 		return empresa;
 	}
-	
-	
+
 	public void inicializarDatos() {
 		guardarClientes();
 		guardarVehiculos();
 		guardarAlquileres();
 		guardarFacturas();
 	}
-	
+
 	public void leerDatos() {
 		leerClientes();
 		leerVehiculos();
@@ -49,8 +53,12 @@ public class ModelFactoryController {
 		leerFacturas();
 	}
 
+//	public void guardarClientes() {
+//		serializador.guardar(getEmpresa().getListaClientes(), Archivo.CLIENTES);
+//	}
+
 	public void guardarClientes() {
-		serializador.guardar(getEmpresa().getListaClientes(), Archivo.CLIENTES);
+		cDao.jsonizar(getEmpresa().getListaClientes());
 	}
 
 	public void guardarVehiculos() {
@@ -64,9 +72,13 @@ public class ModelFactoryController {
 	public void guardarFacturas() {
 		serializador.guardar(getEmpresa().getListaFacturas(), Archivo.FACTURAS);
 	}
- 
+
+//	public void leerClientes() {
+//		getEmpresa().setListaClientes((Map<String, Cliente>) serializador.leer(Archivo.CLIENTES));
+//	}
+
 	public void leerClientes() {
-		getEmpresa().setListaClientes((Map<String, Cliente>) serializador.leer(Archivo.CLIENTES));
+		getEmpresa().setListaClientes(cDao.desjsonizar());
 	}
 
 	public void leerVehiculos() {
@@ -79,6 +91,26 @@ public class ModelFactoryController {
 
 	public void leerFacturas() {
 		getEmpresa().setListaFacturas((Map<Long, Factura>) serializador.leer(Archivo.FACTURAS));
+	}
+
+	public void verificarClientes() {
+		if (!getEmpresa().verificarListaClientes())
+			getEmpresa().setListaClientes(new HashMap<String, Cliente>());
+	}
+
+	public void verificarVehiculos() {
+		if (!getEmpresa().verificarListaVehiculos())
+			getEmpresa().setListaVehiculos(new HashMap<String, Vehiculo>());
+	}
+
+	public void verificarAlquileres() {
+		if (!getEmpresa().verificarListaAlquileres())
+			getEmpresa().setListaAlquileres(new HashMap<Long, Alquiler>());
+	}
+
+	public void verificarFacturas() {
+		if (!getEmpresa().verificarListaFacturas())
+			getEmpresa().setListaFacturas(new HashMap<Long, Factura>());
 	}
 
 }

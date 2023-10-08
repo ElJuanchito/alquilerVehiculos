@@ -26,7 +26,7 @@ public class UtilsPersistence {
 
 	@AllArgsConstructor
 	public enum Archivo {
-		CLIENTES("clientes.txt"), VEHICULOS("vehiculos.txt"), ALQUILERES("alquileres.txt"), FACTURAS("facturas.txt");
+		VEHICULOS("vehiculos.txt"), ALQUILERES("alquileres.txt"), FACTURAS("facturas.txt");
 
 		@Getter
 		private final String texto;
@@ -56,9 +56,6 @@ public class UtilsPersistence {
 			return obOut.readObject();
 		} catch (FileNotFoundException e) {
 			switch (archivo) {
-			case CLIENTES:
-				guardar(new HashMap<String, Cliente>(), Archivo.CLIENTES);
-
 			case VEHICULOS:
 				guardar(new HashMap<String, Vehiculo>(), Archivo.VEHICULOS);
 

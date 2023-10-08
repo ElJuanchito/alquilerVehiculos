@@ -78,6 +78,7 @@ public class RegistroClienteController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		ModelFactoryController.getInstance().verificarClientes();
 		
 		FxUtility.setAsNumberTextfield(txtCedula);
 		FxUtility.setAsNameTextField(txtNombre);

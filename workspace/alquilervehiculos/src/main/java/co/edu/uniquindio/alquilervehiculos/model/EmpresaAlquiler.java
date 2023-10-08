@@ -642,18 +642,32 @@ public class EmpresaAlquiler {
 	}
 
 	public List<Alquiler> obtenerAlquileresFiltrados(Long id) {
-		return listaAlquileres.values().stream()
-                .filter(numero -> numero.getId()!=null && numero.getId().equals(id))
-                .collect(Collectors.toList());
+		return listaAlquileres.values().stream().filter(numero -> numero.getId() != null && numero.getId().equals(id))
+				.collect(Collectors.toList());
 	}
 
 	public List<Factura> obtenerFacturasFiltradas(Long id) {
-		return listaFacturas.values().stream()
-                .filter(numero -> numero.getId()!=null && numero.getId().equals(id))
-                .collect(Collectors.toList());
+		return listaFacturas.values().stream().filter(numero -> numero.getId() != null && numero.getId().equals(id))
+				.collect(Collectors.toList());
 	}
-	
+
 	public boolean verificarListas() {
 		return !(listaClientes == null || listaVehiculos == null || listaAlquileres == null || listaFacturas == null);
+	}
+
+	public boolean verificarListaClientes() {
+		return listaClientes != null;
+	}
+
+	public boolean verificarListaVehiculos() {
+		return listaVehiculos != null;
+	}
+
+	public boolean verificarListaAlquileres() {
+		return listaAlquileres != null;
+	}
+
+	public boolean verificarListaFacturas() {
+		return listaFacturas != null;
 	}
 }

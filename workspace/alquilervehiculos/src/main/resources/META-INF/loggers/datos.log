@@ -1,2 +1,4 @@
 oct. 05, 2023 11:41:10 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
 INFO: El clienteCliente(cedula=100, nombre=Xd, telefono=22, email=3, ciudad=Armenia, direccion=22)Ha sido agregado a la lista
+oct. 07, 2023 11:24:40 P. M. co.edu.uniquindio.alquilervehiculos.model.EmpresaAlquiler agregarCliente
+INFO: El clienteCliente(cedula=1004917064, nombre=Juan, telefono=3225179118, email=perdomocardenas18@gmail.com, ciudad=Armenia, direccion=El Modelo)Ha sido agregado a la lista
